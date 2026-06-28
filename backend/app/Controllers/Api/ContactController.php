@@ -42,6 +42,25 @@ class ContactController extends ResourceController
 
         $this->model->insert($payload);
 
+        // Send email notification
+        $email = \Config\Services::email();
+
+        $email->setFrom($payload['email'], $payload['name']);
+        $email->setTo('contactme@josepaulotimbang.com');
+        $email->setReplyTo($payload['email'], $payload['name']);
+        $email->setSubject('[Portfolio] ' . $payload['subject']);
+        $email->setMessage(
+            "You have a new message from your portfolio contact form.\n\n" .
+            "Name:    {$payload['name']}\n" .
+            "Email:   {$payload['email']}\n" .
+            "Subject: {$payload['subject']}\n\n" .
+            "Message:\n{$payload['message']}\n\n" .
+            "---\n" .
+            "IP: {$payload['ip_address']}"
+        );
+
+        $email->send();
+
         return api_success(null, 'Message sent successfully', 201);
     }
 
