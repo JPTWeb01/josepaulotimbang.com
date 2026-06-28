@@ -3,6 +3,7 @@ import { ArrowRight, Mail, ExternalLink, MapPin } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import AnimateIn from "@/components/ui/AnimateIn";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
+import HeroPhoto from "@/components/ui/HeroPhoto";
 
 const featuredProjects = [
   {
@@ -101,106 +102,120 @@ export default function HomePage() {
           }}
         />
 
-        <div className="relative max-w-6xl mx-auto w-full px-6 py-32">
-          {/* Availability pill */}
-          <AnimateIn delay={0}>
-            <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/20 mb-8">
-              <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-              <span className="text-xs font-medium text-success tracking-wide">
-                Available for work
-              </span>
+        <div className="relative max-w-6xl mx-auto w-full px-6 py-24 lg:py-32">
+          <div className="grid lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+
+            {/* ── Left: text ── */}
+            <div>
+              {/* Availability pill */}
+              <AnimateIn delay={0}>
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/20 mb-8">
+                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+                  <span className="text-xs font-medium text-success tracking-wide">
+                    Available for work
+                  </span>
+                </div>
+              </AnimateIn>
+
+              {/* Name */}
+              <AnimateIn delay={0.05}>
+                <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
+                  <span className="text-gradient">Jose Paulo</span>
+                  <br />
+                  <span className="text-muted/70">Timbang</span>
+                </h1>
+              </AnimateIn>
+
+              {/* Role */}
+              <AnimateIn delay={0.1}>
+                <p className="text-lg sm:text-xl text-muted mb-4 font-light">
+                  Full-Stack Developer
+                  <span className="mx-3 text-border">·</span>
+                  <span className="text-gradient-primary font-medium">
+                    AI Integrations
+                  </span>
+                </p>
+              </AnimateIn>
+
+              {/* Location */}
+              <AnimateIn delay={0.12}>
+                <p className="flex items-center gap-1.5 text-sm text-subtle mb-8">
+                  <MapPin size={13} />
+                  Stittsville, ON, Canada
+                </p>
+              </AnimateIn>
+
+              {/* Description */}
+              <AnimateIn delay={0.15}>
+                <p className="text-muted max-w-lg leading-relaxed mb-10 text-base">
+                  8 years building responsive web apps and AI-powered platforms.
+                  Proficient in React, Python, PHP, Flask, FastAPI, and LLM
+                  integration using Gemini and Groq APIs.
+                </p>
+              </AnimateIn>
+
+              {/* CTAs */}
+              <AnimateIn delay={0.2}>
+                <div className="flex flex-wrap gap-4 mb-10">
+                  <Link
+                    href="/projects"
+                    className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 active:scale-95 transition-all glow-primary-sm"
+                  >
+                    View my work
+                    <ArrowRight size={15} />
+                  </Link>
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center gap-2 px-6 py-3 border border-border text-muted rounded-lg font-medium text-sm hover:text-foreground hover:border-primary/50 hover:bg-card transition-all"
+                  >
+                    Get in touch
+                  </Link>
+                </div>
+              </AnimateIn>
+
+              {/* Social */}
+              <AnimateIn delay={0.25}>
+                <div className="flex items-center gap-1">
+                  {[
+                    {
+                      href: "https://github.com/JPTWeb01",
+                      label: "GitHub",
+                      icon: <GitHubIcon size={18} />,
+                    },
+                    {
+                      href: "https://linkedin.com/in/josepaulotimbang",
+                      label: "LinkedIn",
+                      icon: <LinkedInIcon size={18} />,
+                    },
+                    {
+                      href: "mailto:josepaulotimbang@gmail.com",
+                      label: "Email",
+                      icon: <Mail size={18} />,
+                    },
+                  ].map(({ href, label, icon }) => (
+                    <a
+                      key={label}
+                      href={href}
+                      target={href.startsWith("mailto") ? undefined : "_blank"}
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      className="p-2.5 rounded-lg text-subtle hover:text-foreground hover:bg-card transition-colors"
+                    >
+                      {icon}
+                    </a>
+                  ))}
+                </div>
+              </AnimateIn>
             </div>
-          </AnimateIn>
 
-          {/* Name */}
-          <AnimateIn delay={0.05}>
-            <h1 className="text-6xl sm:text-7xl lg:text-8xl font-bold leading-[1.05] tracking-tight mb-6">
-              <span className="text-gradient">Jose Paulo</span>
-              <br />
-              <span className="text-muted/70">Timbang</span>
-            </h1>
-          </AnimateIn>
+            {/* ── Right: photo ── */}
+            <AnimateIn delay={0.15} direction="left">
+              <div className="flex justify-center lg:justify-end pr-8">
+                <HeroPhoto />
+              </div>
+            </AnimateIn>
 
-          {/* Role */}
-          <AnimateIn delay={0.1}>
-            <p className="text-lg sm:text-xl text-muted mb-4 font-light">
-              Full Stack Developer
-              <span className="mx-3 text-border">·</span>
-              <span className="text-gradient-primary font-medium">
-                AI Engineer
-              </span>
-            </p>
-          </AnimateIn>
-
-          {/* Location */}
-          <AnimateIn delay={0.12}>
-            <p className="flex items-center gap-1.5 text-sm text-subtle mb-8">
-              <MapPin size={13} />
-              Philippines
-            </p>
-          </AnimateIn>
-
-          {/* Description */}
-          <AnimateIn delay={0.15}>
-            <p className="text-muted max-w-lg leading-relaxed mb-10 text-base">
-              I build modern web applications and AI-powered tools. Experienced
-              with PHP, Python, React, and Next.js — actively transitioning
-              into AI engineering and automation.
-            </p>
-          </AnimateIn>
-
-          {/* CTAs */}
-          <AnimateIn delay={0.2}>
-            <div className="flex flex-wrap gap-4 mb-12">
-              <Link
-                href="/projects"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-white rounded-lg font-medium text-sm hover:bg-primary/90 active:scale-95 transition-all glow-primary-sm"
-              >
-                View my work
-                <ArrowRight size={15} />
-              </Link>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 border border-border text-muted rounded-lg font-medium text-sm hover:text-foreground hover:border-primary/50 hover:bg-card transition-all"
-              >
-                Get in touch
-              </Link>
-            </div>
-          </AnimateIn>
-
-          {/* Social */}
-          <AnimateIn delay={0.25}>
-            <div className="flex items-center gap-1">
-              {[
-                {
-                  href: "https://github.com/JPTWeb01",
-                  label: "GitHub",
-                  icon: <GitHubIcon size={18} />,
-                },
-                {
-                  href: "https://linkedin.com/in/josepaulotimbang",
-                  label: "LinkedIn",
-                  icon: <LinkedInIcon size={18} />,
-                },
-                {
-                  href: "mailto:josepaulotimbang@gmail.com",
-                  label: "Email",
-                  icon: <Mail size={18} />,
-                },
-              ].map(({ href, label, icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target={href.startsWith("mailto") ? undefined : "_blank"}
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  className="p-2.5 rounded-lg text-subtle hover:text-foreground hover:bg-card transition-colors"
-                >
-                  {icon}
-                </a>
-              ))}
-            </div>
-          </AnimateIn>
+          </div>
         </div>
       </section>
 
