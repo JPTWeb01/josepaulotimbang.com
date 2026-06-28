@@ -29,51 +29,6 @@ const experiences = [
     ],
   },
   {
-    role: "Grocery Associate",
-    company: "Food Basics",
-    type: "Part-time",
-    location: "Stittsville, ON, Canada",
-    start_date: "2024-01-01",
-    end_date: "2026-01-01",
-    is_current: false,
-    description:
-      "Worked in a fast-paced grocery retail environment while continuing full-stack and AI development projects on evenings and weekends.",
-    highlights: [
-      "Demonstrated reliability and teamwork in a high-volume retail environment",
-      "Continued independent development of AI-powered web projects during this period",
-    ],
-  },
-  {
-    role: "Overnight Associate",
-    company: "Walmart Canada",
-    type: "Full-time",
-    location: "Ontario, Canada",
-    start_date: "2023-01-01",
-    end_date: "2024-01-01",
-    is_current: false,
-    description:
-      "Managed overnight inventory stocking and organisation while upskilling in Python, FastAPI, and LLM integration.",
-    highlights: [
-      "Met overnight shift targets for inventory stocking and organisation",
-      "Used this transition period to build full-stack skills and begin integrating AI APIs into projects",
-    ],
-  },
-  {
-    role: "Fulfillment Associate",
-    company: "Amazon",
-    type: "Full-time",
-    location: "Ontario, Canada",
-    start_date: "2022-01-01",
-    end_date: "2023-01-01",
-    is_current: false,
-    description:
-      "Processed high-volume order fulfillment with accuracy in a warehouse environment after relocating to Canada.",
-    highlights: [
-      "Maintained accuracy and speed in a high-volume fulfillment environment",
-      "Began rebuilding freelance web development practice while transitioning to Canadian job market",
-    ],
-  },
-  {
     role: "Owner / Computer Technician",
     company: "Savvytech Computer Services",
     type: "Self-Employed",

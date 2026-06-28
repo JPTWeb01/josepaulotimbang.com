@@ -25,39 +25,6 @@ const experience = [
     tech: ["React", "Python", "Flask", "FastAPI", "PHP", "MongoDB", "MySQL", "Gemini API", "Groq API"],
   },
   {
-    company: "Food Basics",
-    role: "Grocery Associate",
-    type: "Part-time",
-    period: "2024 - 2026",
-    current: false,
-    points: [
-      "Demonstrated reliability and teamwork in a fast-paced retail environment",
-    ],
-    tech: [],
-  },
-  {
-    company: "Walmart Canada",
-    role: "Overnight Associate",
-    type: "Full-time",
-    period: "2023 - 2024",
-    current: false,
-    points: [
-      "Managed inventory stocking and organisation while meeting overnight shift targets",
-    ],
-    tech: [],
-  },
-  {
-    company: "Amazon",
-    role: "Fulfillment Associate",
-    type: "Full-time",
-    period: "2022 - 2023",
-    current: false,
-    points: [
-      "Processed high-volume order fulfillment with accuracy in a warehouse environment",
-    ],
-    tech: [],
-  },
-  {
     company: "Savvytech Computer Services",
     role: "Owner / Computer Technician",
     type: "Self-Employed",

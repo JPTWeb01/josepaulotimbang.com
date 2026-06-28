@@ -34,11 +34,11 @@ const timeline = [
     tags: ["Python", "Flask", "Gemini API", "WordPress", "Render"],
   },
   {
-    year: "2022–2024",
-    title: "Moved to Canada — Amazon, Walmart, Food Basics",
+    year: "2022",
+    title: "Relocated to Canada",
     description:
-      "Relocated to Stittsville, Ontario. Worked fulfillment and retail roles (Amazon, Walmart Canada, Food Basics) while continuing to build projects and upskill in AI-powered web development on evenings and weekends.",
-    tags: ["Canada", "Career Transition"],
+      "Moved to Stittsville, Ontario. Continued building full-stack and AI-powered projects while settling into the Canadian tech landscape.",
+    tags: ["Canada"],
   },
   {
     year: "2020–2022",
