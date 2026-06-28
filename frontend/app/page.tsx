@@ -63,7 +63,7 @@ const jsonLd = {
   "@type": "Person",
   name: "Jose Paulo Timbang",
   url: "https://josepaulotimbang.com",
-  email: "josepaulotimbang@gmail.com",
+  email: "contactme@josepaulotimbang.com",
   jobTitle: "Full-Stack Developer",
   description:
     "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms using React, Python, PHP, Flask, FastAPI, and LLM APIs.",
@@ -188,7 +188,7 @@ export default function HomePage() {
                       icon: <LinkedInIcon size={18} />,
                     },
                     {
-                      href: "mailto:josepaulotimbang@gmail.com",
+                      href: "mailto:contactme@josepaulotimbang.com",
                       label: "Email",
                       icon: <Mail size={18} />,
                     },

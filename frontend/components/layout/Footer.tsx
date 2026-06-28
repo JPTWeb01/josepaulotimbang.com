@@ -15,7 +15,7 @@ const socials = [
   },
   {
     label: "Email",
-    href: "mailto:josepaulotimbang@gmail.com",
+    href: "mailto:contactme@josepaulotimbang.com",
     icon: Mail,
   },
 ];

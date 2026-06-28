@@ -104,7 +104,7 @@ export default function ResumePage() {
             <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
               <span className="flex items-center gap-1.5"><MapPin size={14} />Stittsville, ON, Canada</span>
               <span className="flex items-center gap-1.5"><Phone size={14} />(613) 890-9037</span>
-              <span className="flex items-center gap-1.5"><Mail size={14} />josepaulotimbang@gmail.com</span>
+              <span className="flex items-center gap-1.5"><Mail size={14} />contactme@josepaulotimbang.com</span>
               <Link href="https://linkedin.com/in/josepaulotimbang" target="_blank" className="flex items-center gap-1.5 hover:text-primary transition-colors">
                 <ExternalLink size={14} />linkedin.com/in/josepaulotimbang
               </Link>
