@@ -1,75 +1,129 @@
 ﻿import type { Metadata } from "next";
 import Link from "next/link";
-import { Download, ExternalLink, MapPin, Mail } from "lucide-react";
+import { Download, ExternalLink, MapPin, Mail, Phone } from "lucide-react";
 import AnimateIn from "@/components/ui/AnimateIn";
 
 export const metadata: Metadata = {
   title: "Resume",
   description:
-    "Resume of Jose Paulo Timbang - Full-Stack Developer specialising in Next.js, React, PHP/CodeIgniter 4, and AI-integrated web applications.",
+    "Resume of Jose Paulo Timbang - Full-Stack Developer with 8 years of experience building web apps and AI-powered platforms.",
 };
 
 const experience = [
   {
-    company: "Freelance",
-    role: "Full-Stack Developer",
+    company: "Various Clients",
+    role: "Freelance Full-Stack Developer",
     type: "Freelance",
-    period: "Jan 2023 - Present",
+    period: "2024 - Present",
     current: true,
     points: [
-      "Designed and built full-stack web apps for clients using Next.js + CodeIgniter 4",
-      "Integrated AI APIs (Claude, OpenAI) into production applications",
-      "Delivered projects on time with TypeScript, MySQL, and Tailwind CSS",
+      "Built pamangan.com - AI recipe platform with Gemini 2.0 Flash, Groq fallback, React, Flask, MongoDB Atlas, JWT auth",
+      "Shipped DevQuiz - quiz platform with AI-generated questions, FastAPI, role-based access, GitHub Actions CI/CD",
+      "Created AI Blog Generator WordPress plugin using Groq API, React 18, Webpack, and WP-Cron",
+      "Built Paulo AI Resume Chatbot (Gemini API) embedded as a WordPress PHP plugin, backend on Render.com",
     ],
-    tech: ["Next.js", "React", "TypeScript", "CodeIgniter 4", "MySQL", "Claude API"],
+    tech: ["React", "Python", "Flask", "FastAPI", "PHP", "MongoDB", "MySQL", "Gemini API", "Groq API"],
   },
   {
-    company: "Pasig City Government",
-    role: "IT Support Specialist",
-    type: "Full-time",
-    period: "Jun 2021 - Dec 2022",
-    current: false,
-    points: [
-      "Provided technical support for 200+ government employees",
-      "Maintained and improved internal web systems built on PHP/MySQL",
-      "Assisted in digitising manual processes to reduce operational overhead",
-    ],
-    tech: ["PHP", "MySQL", "HTML", "CSS", "JavaScript"],
-  },
-  {
-    company: "Self-Employed",
-    role: "Web Developer",
+    company: "Food Basics",
+    role: "Grocery Associate",
     type: "Part-time",
-    period: "Jan 2020 - May 2021",
+    period: "2024 - 2026",
     current: false,
     points: [
-      "Built and customised WordPress sites for small businesses",
-      "Created custom landing pages and improved page speed scores",
+      "Demonstrated reliability and teamwork in a fast-paced retail environment",
     ],
-    tech: ["WordPress", "PHP", "HTML", "CSS", "jQuery"],
+    tech: [],
   },
-];
-
-const education = [
   {
-    institution: "Pamantasan ng Lungsod ng Maynila",
-    degree: "Bachelor of Science in Information Technology",
-    period: "2016 - 2020",
+    company: "Walmart Canada",
+    role: "Overnight Associate",
+    type: "Full-time",
+    period: "2023 - 2024",
+    current: false,
+    points: [
+      "Managed inventory stocking and organisation while meeting overnight shift targets",
+    ],
+    tech: [],
+  },
+  {
+    company: "Amazon",
+    role: "Fulfillment Associate",
+    type: "Full-time",
+    period: "2022 - 2023",
+    current: false,
+    points: [
+      "Processed high-volume order fulfillment with accuracy in a warehouse environment",
+    ],
+    tech: [],
+  },
+  {
+    company: "Savvytech Computer Services",
+    role: "Owner / Computer Technician",
+    type: "Self-Employed",
+    period: "Apr 2020 - Oct 2022",
+    current: false,
+    points: [
+      "Built and repaired custom PCs, replaced faulty components, and configured BIOS/UEFI settings",
+      "Performed advanced data recovery and implemented cybersecurity measures for clients",
+      "Managed inventory, supplier relations, and client communications",
+    ],
+    tech: ["PC Hardware", "Networking", "Windows", "Cybersecurity"],
+  },
+  {
+    company: "Carolinas Dream Team",
+    role: "Marketing Assistant / Web Designer",
+    type: "Remote (USA)",
+    period: "Dec 2020 - Apr 2022",
+    current: false,
+    points: [
+      "Designed marketing materials, updated WordPress websites, and customised site themes",
+      "Managed automated email campaigns using Mailchimp and created social media graphics",
+      "Monitored website performance with Google Analytics and prepared weekly reports",
+    ],
+    tech: ["WordPress", "Mailchimp", "Google Analytics", "Figma"],
+  },
+  {
+    company: "Cyberbacker",
+    role: "Web Developer",
+    type: "Remote (USA)",
+    period: "Jun 2018 - Nov 2020",
+    current: false,
+    points: [
+      "Developed and maintained responsive websites and custom internal management tools",
+      "Integrated live chat, social media channels, and SEO strategies to increase engagement",
+      "Provided technical support and troubleshooting for internal systems",
+    ],
+    tech: ["PHP", "JavaScript", "HTML", "CSS", "SEO"],
+  },
+  {
+    company: "Various US Clients",
+    role: "Freelance Web Developer",
+    type: "Freelance",
+    period: "2013 - 2017",
+    current: false,
+    points: [
+      "WordPress sites and CodeIgniter apps for US real estate, design, and small business clients",
+      "End-to-end delivery: design, development, SEO, Google Analytics, and social media integration",
+    ],
+    tech: ["WordPress", "CodeIgniter", "PHP", "HTML", "CSS", "SEO"],
   },
 ];
 
 const skills = [
-  { category: "Frontend", items: ["Next.js", "React", "TypeScript", "Tailwind CSS", "Framer Motion"] },
-  { category: "Backend", items: ["PHP", "CodeIgniter 4", "Node.js", "REST APIs"] },
-  { category: "Database", items: ["MySQL", "PostgreSQL", "MongoDB"] },
-  { category: "AI", items: ["Claude API", "OpenAI API", "LangChain", "Prompt Engineering"] },
-  { category: "Tools", items: ["Git", "GitHub Actions", "Docker", "Vercel", "Linux CLI"] },
+  { category: "Frontend", items: ["React", "JavaScript", "TypeScript", "HTML5/CSS3", "Next.js", "Bootstrap", "Tailwind CSS", "WordPress", "Shopify"] },
+  { category: "Backend", items: ["Python", "PHP", "Flask", "FastAPI", "REST APIs", "SQLAlchemy"] },
+  { category: "Databases", items: ["MySQL", "MongoDB", "PostgreSQL"] },
+  { category: "AI & APIs", items: ["Gemini API", "Groq API", "LLM Integration", "Prompt Engineering"] },
+  { category: "DevOps", items: ["Git", "GitHub Actions", "CI/CD", "Linux/SSH", "Render", "Hostinger"] },
+  { category: "SEO & Design", items: ["Google Analytics", "Yoast SEO", "SEMrush", "Figma", "Photoshop"] },
 ];
 
 const certifications = [
-  { name: "Meta Front-End Developer Professional Certificate", issuer: "Meta / Coursera", year: "2023" },
-  { name: "Responsive Web Design", issuer: "freeCodeCamp", year: "2022" },
-  { name: "JavaScript Algorithms and Data Structures", issuer: "freeCodeCamp", year: "2022" },
+  { name: "React Basics", issuer: "Meta / Coursera", year: "2026" },
+  { name: "HTML and CSS in Depth", issuer: "Meta / Coursera", year: "2026" },
+  { name: "Programming with JavaScript", issuer: "Meta / Coursera", year: "2026" },
+  { name: "Version Control", issuer: "Meta / Coursera", year: "2026" },
 ];
 
 export default function ResumePage() {
@@ -80,11 +134,12 @@ export default function ResumePage() {
           <div>
             <h1 className="text-4xl font-bold text-foreground mb-2">Jose Paulo Timbang</h1>
             <p className="text-lg text-primary font-medium mb-4">Full-Stack Developer</p>
-            <div className="flex flex-wrap gap-4 text-sm text-muted">
-              <span className="flex items-center gap-1.5"><MapPin size={14} />Manila, Philippines</span>
+            <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm text-muted">
+              <span className="flex items-center gap-1.5"><MapPin size={14} />Stittsville, ON, Canada</span>
+              <span className="flex items-center gap-1.5"><Phone size={14} />(613) 890-9037</span>
               <span className="flex items-center gap-1.5"><Mail size={14} />josepaulotimbang@gmail.com</span>
-              <Link href="https://josepaulotimbang.com" target="_blank" className="flex items-center gap-1.5 hover:text-primary transition-colors">
-                <ExternalLink size={14} />josepaulotimbang.com
+              <Link href="https://linkedin.com/in/josepaulotimbang" target="_blank" className="flex items-center gap-1.5 hover:text-primary transition-colors">
+                <ExternalLink size={14} />linkedin.com/in/josepaulotimbang
               </Link>
             </div>
           </div>
@@ -97,12 +152,12 @@ export default function ResumePage() {
 
       <AnimateIn delay={0.05}>
         <section className="mb-14">
-          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-4">Summary</h2>
+          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-4">Professional Summary</h2>
           <p className="text-foreground/80 leading-relaxed">
-            Full-stack developer with 3+ years of experience building production web applications using
-            Next.js, React, and PHP/CodeIgniter 4. Focused on clean, maintainable code and integrating
-            modern AI APIs to build smarter user experiences. Comfortable working independently and
-            shipping end-to-end from design to deployment.
+            Full-Stack Developer with 8 years of experience building and deploying responsive web applications and AI-powered
+            platforms. Proficient in React, Python, PHP, Flask, FastAPI, and REST API development. Experienced in LLM integration
+            using Google Gemini and Groq APIs, JWT authentication, MongoDB, MySQL, SQLAlchemy, CI/CD pipelines, and GitHub
+            Actions. Skilled in cloud deployment, prompt engineering, and building scalable full-stack solutions.
           </p>
         </section>
       </AnimateIn>
@@ -113,7 +168,7 @@ export default function ResumePage() {
           <div className="space-y-10">
             {experience.map((job, i) => (
               <div key={i} className="relative pl-6 border-l border-border">
-                <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-primary" />
+                <div className={`absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full ${job.current ? "bg-primary" : "bg-border"}`} />
                 <div className="flex flex-wrap items-center gap-3 mb-1">
                   <h3 className="font-semibold text-foreground">{job.role}</h3>
                   {job.current && (
@@ -129,11 +184,13 @@ export default function ResumePage() {
                     </li>
                   ))}
                 </ul>
-                <div className="flex flex-wrap gap-1.5">
-                  {job.tech.map((t) => (
-                    <span key={t} className="text-xs px-2 py-0.5 rounded-md bg-card border border-border text-muted">{t}</span>
-                  ))}
-                </div>
+                {job.tech.length > 0 && (
+                  <div className="flex flex-wrap gap-1.5">
+                    {job.tech.map((t) => (
+                      <span key={t} className="text-xs px-2 py-0.5 rounded-md bg-card border border-border text-muted">{t}</span>
+                    ))}
+                  </div>
+                )}
               </div>
             ))}
           </div>
@@ -142,7 +199,7 @@ export default function ResumePage() {
 
       <AnimateIn delay={0.15}>
         <section className="mb-14">
-          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-8">Skills</h2>
+          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-8">Technical Skills</h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {skills.map((group) => (
               <div key={group.category}>
@@ -160,22 +217,8 @@ export default function ResumePage() {
 
       <AnimateIn delay={0.2}>
         <section className="mb-14">
-          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-8">Education</h2>
-          {education.map((edu, i) => (
-            <div key={i} className="pl-6 border-l border-border relative">
-              <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-accent" />
-              <p className="font-semibold text-foreground">{edu.degree}</p>
-              <p className="text-sm text-primary mt-0.5">{edu.institution}</p>
-              <p className="text-xs text-muted mt-1">{edu.period}</p>
-            </div>
-          ))}
-        </section>
-      </AnimateIn>
-
-      <AnimateIn delay={0.25}>
-        <section>
           <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-8">Certifications</h2>
-          <div className="space-y-4">
+          <div className="space-y-3">
             {certifications.map((cert, i) => (
               <div key={i} className="flex justify-between items-start gap-4 p-4 rounded-xl bg-card border border-border">
                 <div>
@@ -185,6 +228,18 @@ export default function ResumePage() {
                 <span className="text-xs text-muted shrink-0 mt-0.5">{cert.year}</span>
               </div>
             ))}
+          </div>
+        </section>
+      </AnimateIn>
+
+      <AnimateIn delay={0.25}>
+        <section>
+          <h2 className="text-xs font-semibold text-muted uppercase tracking-widest mb-8">Education</h2>
+          <div className="pl-6 border-l border-border relative">
+            <div className="absolute left-[-5px] top-1.5 w-2.5 h-2.5 rounded-full bg-accent" />
+            <p className="font-semibold text-foreground">Bachelor of Science in Information Technology</p>
+            <p className="text-sm text-primary mt-0.5">AMA Computer College, Philippines</p>
+            <p className="text-xs text-muted mt-1">2011</p>
           </div>
         </section>
       </AnimateIn>

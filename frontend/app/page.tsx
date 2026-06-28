@@ -45,10 +45,10 @@ const skillGroups = [
 ];
 
 const stats = [
-  { value: "3+", label: "Years experience" },
+  { value: "8+", label: "Years experience" },
   { value: "10+", label: "Projects built" },
-  { value: "6+", label: "Tech stacks" },
-  { value: "2", label: "AI platforms" },
+  { value: "8+", label: "Tech stacks" },
+  { value: "3", label: "AI APIs integrated" },
 ];
 
 const statusStyles: Record<string, string> = {
@@ -65,7 +65,7 @@ const jsonLd = {
   email: "josepaulotimbang@gmail.com",
   jobTitle: "Full-Stack Developer",
   description:
-    "Full-stack developer specialising in Next.js, React, PHP/CodeIgniter 4, and AI-integrated web applications.",
+    "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms using React, Python, PHP, Flask, FastAPI, and LLM APIs.",
   sameAs: [
     "https://github.com/josepaulotimbang",
     "https://linkedin.com/in/josepaulotimbang",

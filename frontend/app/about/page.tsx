@@ -7,59 +7,73 @@ import Badge from "@/components/ui/Badge";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Jose Paulo Timbang — Full Stack Developer and AI Engineer from the Philippines.",
+    "Learn about Jose Paulo Timbang — Full-Stack Developer with 8 years of experience building web apps and AI-powered platforms. Based in Stittsville, ON, Canada.",
 };
 
 const timeline = [
   {
     year: "2026",
-    title: "Portfolio Rebuild",
+    title: "Portfolio Rebuild + pamangan.com",
     description:
-      "Rebuilt personal portfolio from WordPress to a custom Next.js 16 + CodeIgniter 4 full-stack system. Documented the process as a live engineering case study.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "PHP"],
+      "Rebuilt personal portfolio from WordPress to a custom Next.js 16 stack. Shipped pamangan.com — a full-stack AI recipe platform using Google Gemini 2.0 Flash and Groq as fallback, with a React frontend, Flask REST API, MongoDB Atlas, and an admin dashboard.",
+    tags: ["Next.js", "React", "Flask", "MongoDB", "Gemini AI", "Groq"],
     current: true,
   },
   {
-    year: "2026",
-    title: "pamangan.com — AI Recipe Platform",
-    description:
-      "Designed and deployed a full-stack AI recipe platform celebrating Filipino cuisine. Integrated Google Gemini and Groq APIs with automatic fallback. Built React frontend, Flask backend, MongoDB database, and admin dashboard.",
-    tags: ["React", "Flask", "MongoDB", "Gemini AI", "Groq"],
-  },
-  {
     year: "2025",
-    title: "DevQuiz — Developer Quiz Platform",
+    title: "DevQuiz + AI Blog Generator",
     description:
-      "Built an interactive quiz platform for developers with categorized questions, real-time scoring, and a leaderboard. First full-stack project using Node.js and MySQL.",
-    tags: ["React", "Node.js", "MySQL"],
+      "Built DevQuiz — a quiz platform with AI-generated questions (Groq llama-3.3-70b), role-based access, JWT auth, and a React 18 / FastAPI stack. Also shipped the AI Blog Generator, a WordPress plugin that autonomously writes and publishes posts using the Groq API via WP-Cron.",
+    tags: ["React", "FastAPI", "Python", "Groq", "PHP", "WordPress"],
   },
   {
     year: "2024",
-    title: "Started AI Engineering",
+    title: "LLM Integration & Paulo AI Chatbot",
     description:
-      "Began studying AI Engineering and prompt engineering. Built the Paulo AI Chatbot using OpenAI's API — first experience with LLM integration, streaming responses, and conversational UI design.",
-    tags: ["Python", "OpenAI API", "React"],
+      "Went deep on LLM integration and prompt engineering. Built the Paulo AI Resume Chatbot — a Gemini-powered chat widget embedded in WordPress as a custom PHP plugin, with a Python/Flask backend deployed on Render.com.",
+    tags: ["Python", "Flask", "Gemini API", "WordPress", "Render"],
   },
   {
-    year: "2023",
-    title: "Freelance Full Stack Development",
+    year: "2022–2024",
+    title: "Moved to Canada — Amazon, Walmart, Food Basics",
     description:
-      "Started taking freelance web development projects — primarily PHP/CodeIgniter backends with React frontends. Focused on building production-ready applications for local clients.",
-    tags: ["PHP", "CodeIgniter", "React", "MySQL"],
+      "Relocated to Stittsville, Ontario. Worked fulfillment and retail roles (Amazon, Walmart Canada, Food Basics) while continuing to build projects and upskill in AI-powered web development on evenings and weekends.",
+    tags: ["Canada", "Career Transition"],
   },
   {
-    year: "2022",
-    title: "Self-Taught Web Development",
+    year: "2020–2022",
+    title: "Owner / Computer Technician — Savvytech",
     description:
-      "Completed intensive self-study in web development. Built foundational skills in HTML, CSS, JavaScript, PHP, and MySQL by building real projects from scratch.",
-    tags: ["HTML", "CSS", "JavaScript", "PHP"],
+      "Founded and operated Savvytech Computer Services in Angeles City, Philippines. Built and repaired custom PCs, performed data recovery, implemented cybersecurity measures, and managed inventory, supplier relations, and client communications.",
+    tags: ["Hardware", "Networking", "Business"],
   },
   {
-    year: "2020",
-    title: "Computer Technician",
+    year: "2020–2022",
+    title: "Marketing Assistant / Web Designer — Carolinas Dream Team",
     description:
-      "Started working as a computer technician — diagnosing hardware faults, performing repairs, OS installations, and software troubleshooting. Built a strong foundation in how computers actually work.",
-    tags: ["Hardware", "Windows", "Networking"],
+      "Designed marketing materials and customised WordPress sites for a US-based real estate team. Managed automated Mailchimp campaigns, created social media graphics, and monitored site performance via Google Analytics.",
+    tags: ["WordPress", "Mailchimp", "Google Analytics", "Figma"],
+  },
+  {
+    year: "2018–2020",
+    title: "Web Developer — Cyberbacker",
+    description:
+      "Developed and maintained responsive websites and custom internal management tools for a US-based remote staffing company. Integrated live chat, social media channels, and SEO strategies to increase engagement.",
+    tags: ["PHP", "JavaScript", "HTML", "CSS", "SEO"],
+  },
+  {
+    year: "2013–2017",
+    title: "Freelance Web Developer",
+    description:
+      "Built WordPress sites and custom CodeIgniter applications for US-based clients — real estate agencies, design studios, and small businesses. Handled end-to-end delivery: design, development, SEO, and Google Analytics setup.",
+    tags: ["WordPress", "CodeIgniter", "PHP", "HTML", "CSS", "SEO"],
+  },
+  {
+    year: "2011",
+    title: "B.S. Information Technology — AMA Computer College",
+    description:
+      "Graduated with a Bachelor of Science in Information Technology from AMA Computer College, Philippines. Built the foundation in computer science, networking, and software development.",
+    tags: ["Philippines", "BSIT"],
   },
 ];
 
@@ -100,15 +114,17 @@ export default function AboutPage() {
 
           <div className="grid sm:grid-cols-2 gap-6 text-[15px] text-muted leading-relaxed max-w-2xl">
             <p>
-              I&apos;m Jose Paulo Timbang — a self-taught Full Stack Web
-              Developer and Computer Technician from the Philippines. I
-              specialize in building full-stack web applications using PHP,
-              Python, React, and Next.js.
+              I&apos;m Jose Paulo Timbang — a Full-Stack Developer with 8 years
+              of experience building and deploying responsive web applications
+              and AI-powered platforms. I&apos;m based in Stittsville, Ontario,
+              Canada.
             </p>
             <p>
-              I&apos;m actively transitioning into AI Engineering, integrating
-              LLMs into production applications and learning how to build
-              AI-powered tools that solve real problems.
+              I work across the full stack — React and TypeScript on the
+              frontend, Python (Flask, FastAPI) and PHP on the backend — and
+              integrate LLMs like Google Gemini and Groq into production
+              applications with fallback logic, prompt engineering, and
+              CI/CD-automated deployments.
             </p>
           </div>
         </div>

@@ -6,62 +6,160 @@ import { formatMonthYear } from "@/lib/utils";
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Professional experience of Jose Paulo Timbang — Full Stack Developer and Computer Technician.",
+    "Professional experience of Jose Paulo Timbang — Full-Stack Developer with 8 years of experience in web development and AI integration.",
 };
 
 const experiences = [
   {
-    role: "Freelance Full Stack Developer",
-    company: "Self-Employed",
+    role: "Freelance Full-Stack Developer",
+    company: "Various Clients",
     type: "Freelance",
-    location: "Remote / Philippines",
-    start_date: "2023-01-01",
+    location: "Remote",
+    start_date: "2024-01-01",
     end_date: null,
     is_current: true,
     description:
-      "Designing and building full-stack web applications for clients. Specializing in PHP/CodeIgniter backends, React/Next.js frontends, MySQL databases, and AI API integration.",
+      "Building and deploying full-stack web applications and AI-powered platforms for clients. Shipping production projects end-to-end — from architecture to deployment — with CI/CD pipelines and cloud hosting.",
     highlights: [
-      "Designed and deployed pamangan.com — a full-stack AI recipe platform with Google Gemini and Groq integration",
-      "Built DevQuiz, an interactive developer quiz platform with real-time scoring",
-      "Integrated AI APIs (Gemini, OpenAI, Groq) with fallback logic into production applications",
-      "Managed end-to-end project delivery — from requirements to deployment on Hostinger and cloud platforms",
-      "Implemented CI/CD pipelines using GitHub Actions for automated frontend deployments",
+      "Built pamangan.com — AI recipe platform with Google Gemini 2.0 Flash, Groq fallback, React, Flask, MongoDB Atlas, and JWT auth",
+      "Shipped DevQuiz — developer quiz platform with AI-generated questions, role-based access, FastAPI, and GitHub Actions CI/CD",
+      "Created AI Blog Generator — WordPress plugin using Groq API, React 18, Webpack, and WP-Cron for autonomous post scheduling",
+      "Built Paulo AI Resume Chatbot — Gemini-powered chat widget embedded as a WordPress PHP plugin, backend on Render.com",
+      "Implemented CI/CD pipelines with GitHub Actions for automated SSH deployment to Hostinger and Render",
     ],
   },
   {
-    role: "Computer Technician",
-    company: "Self-Employed",
-    type: "Full-time",
-    location: "Philippines",
-    start_date: "2020-01-01",
-    end_date: null,
-    is_current: true,
+    role: "Grocery Associate",
+    company: "Food Basics",
+    type: "Part-time",
+    location: "Stittsville, ON, Canada",
+    start_date: "2024-01-01",
+    end_date: "2026-01-01",
+    is_current: false,
     description:
-      "Hardware diagnosis, repair, and maintenance for personal computers, laptops, and peripherals. Software troubleshooting, OS installation, and system optimization for individual and small business clients.",
+      "Worked in a fast-paced grocery retail environment while continuing full-stack and AI development projects on evenings and weekends.",
     highlights: [
-      "Diagnosed and repaired hardware faults across 100+ devices — desktops, laptops, and peripherals",
-      "Performed OS installations, driver updates, BIOS configurations, and software setup",
-      "Provided network configuration and WiFi troubleshooting for home and small office environments",
-      "Built and customized desktop systems for gaming, productivity, and creative work",
+      "Demonstrated reliability and teamwork in a high-volume retail environment",
+      "Continued independent development of AI-powered web projects during this period",
+    ],
+  },
+  {
+    role: "Overnight Associate",
+    company: "Walmart Canada",
+    type: "Full-time",
+    location: "Ontario, Canada",
+    start_date: "2023-01-01",
+    end_date: "2024-01-01",
+    is_current: false,
+    description:
+      "Managed overnight inventory stocking and organisation while upskilling in Python, FastAPI, and LLM integration.",
+    highlights: [
+      "Met overnight shift targets for inventory stocking and organisation",
+      "Used this transition period to build full-stack skills and begin integrating AI APIs into projects",
+    ],
+  },
+  {
+    role: "Fulfillment Associate",
+    company: "Amazon",
+    type: "Full-time",
+    location: "Ontario, Canada",
+    start_date: "2022-01-01",
+    end_date: "2023-01-01",
+    is_current: false,
+    description:
+      "Processed high-volume order fulfillment with accuracy in a warehouse environment after relocating to Canada.",
+    highlights: [
+      "Maintained accuracy and speed in a high-volume fulfillment environment",
+      "Began rebuilding freelance web development practice while transitioning to Canadian job market",
+    ],
+  },
+  {
+    role: "Owner / Computer Technician",
+    company: "Savvytech Computer Services",
+    type: "Self-Employed",
+    location: "Angeles City, Philippines",
+    start_date: "2020-04-01",
+    end_date: "2022-10-01",
+    is_current: false,
+    description:
+      "Founded and operated a computer repair and services business. Handled hardware repairs, custom PC builds, data recovery, cybersecurity, and client management.",
+    highlights: [
+      "Built and repaired custom PCs, replaced faulty components, and configured BIOS/UEFI settings",
+      "Performed advanced data recovery and implemented cybersecurity measures for clients",
+      "Managed inventory, supplier relations, and client communications",
+    ],
+  },
+  {
+    role: "Marketing Assistant / Web Designer",
+    company: "Carolinas Dream Team",
+    type: "Remote (USA)",
+    location: "Remote",
+    start_date: "2020-12-01",
+    end_date: "2022-04-01",
+    is_current: false,
+    description:
+      "Designed marketing materials and maintained WordPress websites for a US-based real estate team. Managed email campaigns and monitored site analytics.",
+    highlights: [
+      "Designed marketing materials and customised WordPress site themes",
+      "Managed automated email campaigns using Mailchimp and created social media graphics",
+      "Monitored website performance with Google Analytics and prepared weekly reports",
+    ],
+  },
+  {
+    role: "Web Developer",
+    company: "Cyberbacker",
+    type: "Remote (USA)",
+    location: "Remote",
+    start_date: "2018-06-01",
+    end_date: "2020-11-01",
+    is_current: false,
+    description:
+      "Developed and maintained responsive websites and custom internal management tools for a US-based remote staffing company.",
+    highlights: [
+      "Developed and maintained responsive websites and custom internal management tools",
+      "Integrated live chat, social media channels, and SEO strategies to increase engagement",
+      "Provided technical support and troubleshooting for internal systems",
+    ],
+  },
+  {
+    role: "Freelance Web Developer",
+    company: "Various US Clients",
+    type: "Freelance",
+    location: "Remote (USA)",
+    start_date: "2013-01-01",
+    end_date: "2017-12-31",
+    is_current: false,
+    description:
+      "Built WordPress sites and CodeIgniter applications for US-based clients in real estate, design, and small business. Handled full-cycle delivery from design to SEO and analytics.",
+    highlights: [
+      "Fast CMA & MLS Deal Finder — WordPress site with SEO and social media integration",
+      "Graphics Eye Catcher Design — mobile-responsive designs with on-page SEO and Google Analytics",
+      "Affordable Homes — custom WordPress site with social media and branding consistency",
+      "Tallships Business Centre — mobile-responsive CodeIgniter site with CRM and live chat integration",
     ],
   },
 ];
 
 const certifications = [
   {
-    name: "Responsive Web Design",
-    issuer: "freeCodeCamp",
-    year: "2022",
+    name: "React Basics",
+    issuer: "Meta / Coursera",
+    year: "2026",
   },
   {
-    name: "JavaScript Algorithms and Data Structures",
-    issuer: "freeCodeCamp",
-    year: "2022",
+    name: "HTML and CSS in Depth",
+    issuer: "Meta / Coursera",
+    year: "2026",
   },
   {
-    name: "AI Engineering Foundations",
-    issuer: "Self-study (OpenAI, Gemini, Groq)",
-    year: "2024–present",
+    name: "Programming with JavaScript",
+    issuer: "Meta / Coursera",
+    year: "2026",
+  },
+  {
+    name: "Version Control",
+    issuer: "Meta / Coursera",
+    year: "2026",
   },
 ];
 
