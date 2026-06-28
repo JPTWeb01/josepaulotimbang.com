@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 
@@ -24,9 +25,18 @@ export default function Footer() {
   return (
     <footer className="border-t border-border mt-auto">
       <div className="max-w-6xl mx-auto px-6 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
-        <p className="text-sm text-subtle">
-          &copy; {new Date().getFullYear()} Jose Paulo Timbang. All rights reserved.
-        </p>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
+            src="/logo.png"
+            alt="JPT Logo"
+            width={28}
+            height={28}
+            className="rounded-full opacity-70 group-hover:opacity-100 transition-opacity"
+          />
+          <p className="text-sm text-subtle">
+            &copy; {new Date().getFullYear()} Jose Paulo Timbang. All rights reserved.
+          </p>
+        </Link>
 
         <div className="flex items-center gap-2">
           {socials.map(({ label, href, icon: Icon }) => (

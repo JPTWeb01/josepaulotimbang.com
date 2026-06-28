@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Menu, X } from "lucide-react";
 import Nav from "./Nav";
 
@@ -31,11 +32,17 @@ export default function Header() {
     >
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link
-          href="/"
-          className="text-sm font-semibold text-foreground tracking-tight hover:text-primary transition-colors"
-        >
-          jose paulo<span className="text-primary">.</span>
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <Image
+            src="/logo.png"
+            alt="JPT Logo"
+            width={32}
+            height={32}
+            className="rounded-full transition-opacity group-hover:opacity-80"
+          />
+          <span className="text-sm font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors">
+            jose paulo<span className="text-primary">.</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}

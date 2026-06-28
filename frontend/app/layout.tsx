@@ -39,21 +39,27 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Jose Paulo Timbang", url: "https://josepaulotimbang.com" }],
   creator: "Jose Paulo Timbang",
+  icons: {
+    icon: "/icon.png",
+    apple: "/apple-icon.png",
+  },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: "https://josepaulotimbang.com",
     siteName: "Jose Paulo Timbang",
-    title: "Jose Paulo Timbang — Full Stack Developer & AI Engineer",
+    title: "Jose Paulo Timbang — Full-Stack Developer",
     description:
-      "Full Stack Web Developer and aspiring AI Engineer based in the Philippines.",
+      "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms.",
+    images: [{ url: "/logo.png", width: 512, height: 512, alt: "JPT Logo" }],
   },
   twitter: {
-    card: "summary_large_image",
-    title: "Jose Paulo Timbang — Full Stack Developer & AI Engineer",
+    card: "summary",
+    title: "Jose Paulo Timbang — Full-Stack Developer",
     description:
-      "Full Stack Web Developer and aspiring AI Engineer based in the Philippines.",
+      "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms.",
     creator: "@josepaulotimbang",
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
