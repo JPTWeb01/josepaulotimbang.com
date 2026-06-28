@@ -2,9 +2,10 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
-import { submitContact } from "@/lib/api";
 
 type Status = "idle" | "loading" | "success" | "error";
+
+const ACCESS_KEY = process.env.NEXT_PUBLIC_WEB3FORMS_KEY ?? "";
 
 export default function ContactForm() {
   const [status, setStatus] = useState<Status>("idle");
@@ -26,7 +27,21 @@ export default function ContactForm() {
     setStatus("loading");
 
     try {
-      await submitContact(form);
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify({
+          access_key: ACCESS_KEY,
+          subject: `[Portfolio] ${form.subject}`,
+          from_name: form.name,
+          replyto: form.email,
+          message: `Name: ${form.name}\nEmail: ${form.email}\n\n${form.message}`,
+        }),
+      });
+
+      const json = await res.json();
+      if (!res.ok || json.success === false) throw new Error(json.message);
+
       setStatus("success");
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch {
