@@ -133,44 +133,41 @@ SELECT p.id, t.id FROM posts p, tags t
 WHERE p.slug = 'building-portfolio-nextjs-codeigniter'
   AND t.slug IN ('nextjs', 'react', 'typescript', 'php', 'codeigniter');
 
--- ─── Sample project ────────────────────────────────────────────────────────
-INSERT INTO projects (title, slug, description, long_description, tech_stack, category, status, live_url, github_url, featured, sort_order, created_at, updated_at)
-VALUES (
-  'Pamangan',
-  'pamangan',
-  'AI-powered Filipino recipe platform that generates personalised recipes based on available ingredients using Claude AI.',
-  'Pamangan is a full-stack AI recipe generation platform built to address food accessibility in Filipino households. Users input ingredients they have on hand and the AI generates a culturally authentic recipe, step-by-step instructions, and nutritional information.',
-  '["Next.js","TypeScript","Tailwind CSS","CodeIgniter 4","MySQL","Claude AI"]',
-  'AI / Full-Stack',
-  'active',
-  'https://pamangan.com',
-  'https://github.com/josepaulotimbang/pamangan',
-  1, 1,
-  NOW(), NOW()
+-- ─── Projects ───────────────────────────────────────────────────────────────
+INSERT INTO projects (title, slug, description, tech_stack, category, status, live_url, github_url, featured, sort_order, created_at, updated_at)
+VALUES
+(
+  'pamangan.com', 'pamangan',
+  'AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, and nutrition analysis.',
+  '["React 18","Flask","Python","MongoDB Atlas","Gemini 1.5 Flash","Groq","PyMongo","Koyeb"]',
+  'Full Stack / AI', 'active', 'https://pamangan.com', NULL,
+  1, 1, NOW(), NOW()
 ),
 (
-  'DevQuiz',
-  'devquiz',
-  'Developer quiz platform with AI-generated questions covering JavaScript, TypeScript, React, and more.',
-  'DevQuiz generates fresh quiz questions using Claude AI, ensuring questions stay current with the latest frameworks and best practices. Features spaced repetition, leaderboards, and category filters.',
-  '["Next.js","TypeScript","Tailwind CSS","Node.js","PostgreSQL","Claude AI"]',
-  'AI / Full-Stack',
-  'active',
-  NULL,
-  'https://github.com/josepaulotimbang/devquiz',
-  1, 2,
-  NOW(), NOW()
+  'DevQuiz', 'devquiz',
+  'Developer quiz platform with AI-generated questions refreshed weekly, real-time scoring, and an admin panel.',
+  '["React","FastAPI","Python","AI Generation"]',
+  'Web App / AI', 'active', 'https://devquiz.josepaulotimbang.com', 'https://github.com/JPTWeb01/devquiz',
+  1, 2, NOW(), NOW()
 ),
 (
-  'Paulo AI Chatbot',
-  'paulo-ai-chatbot',
-  'Personal AI assistant trained on my portfolio, projects, and background — so recruiters can get instant answers.',
-  'An embedded AI chatbot that knows my entire professional history, projects, and skills. Powered by the Claude API with a custom system prompt, it answers recruiter questions in real time.',
-  '["Next.js","TypeScript","Tailwind CSS","Claude API","Vercel"]',
-  'AI',
-  'active',
-  'https://josepaulotimbang.com',
-  NULL,
-  1, 3,
-  NOW(), NOW()
+  'Paulo AI Resume Chatbot', 'paulo-ai-chatbot',
+  'AI-powered resume chatbot using Gemini API — embedded into WordPress as a custom plugin so recruiters get instant answers.',
+  '["Python","Flask","Gemini API","WordPress","JavaScript","Render.com"]',
+  'AI / Widget', 'active', NULL, 'https://github.com/JPTWeb01/paulo-ai-chatbot',
+  1, 3, NOW(), NOW()
+),
+(
+  'AI Blog Generator', 'ai-blog-generator',
+  'WordPress plugin that autonomously generates and publishes AI-powered blog posts using the Groq API on a WP-Cron schedule.',
+  '["PHP 8.0+","React 18","Webpack","Groq API","llama-3.3-70b","WP REST API","WP-Cron","GitHub Actions"]',
+  'WP Plugin / AI', 'active', NULL, 'https://github.com/JPTWeb01/ai-blog-generator',
+  1, 4, NOW(), NOW()
+),
+(
+  'Pawfurrytail.com', 'pawfurrytail',
+  'Full-stack WooCommerce e-commerce store for pet products with custom theming, product management, and SEO optimisation.',
+  '["WordPress","WooCommerce","PHP","JavaScript","CSS","SEO"]',
+  'E-commerce / Web', 'active', 'https://pawfurrytail.com', NULL,
+  0, 5, NOW(), NOW()
 );

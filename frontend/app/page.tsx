@@ -9,9 +9,9 @@ const featuredProjects = [
     slug: "pamangan",
     title: "pamangan.com",
     excerpt:
-      "AI-powered Filipino recipe platform with search, recipe generation, grocery lists, and nutrition analysis.",
-    tech: ["React", "Flask", "MongoDB", "Gemini AI"],
-    github: "https://github.com/josepaulotimbang/pamangan.com",
+      "AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, and nutrition analysis.",
+    tech: ["React 18", "Flask", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq"],
+    github: null,
     live: "https://pamangan.com",
     status: "Live" as const,
   },
@@ -19,21 +19,21 @@ const featuredProjects = [
     slug: "devquiz",
     title: "DevQuiz",
     excerpt:
-      "Interactive developer quiz platform with categorized questions, scoring, and leaderboard.",
-    tech: ["React", "Node.js", "MySQL"],
-    github: "https://github.com/josepaulotimbang/devquiz",
-    live: null,
-    status: "In Progress" as const,
+      "Developer quiz platform with AI-generated questions refreshed weekly, real-time scoring, and an admin panel.",
+    tech: ["React", "FastAPI", "Python", "Groq AI"],
+    github: "https://github.com/JPTWeb01/devquiz",
+    live: "https://devquiz.josepaulotimbang.com",
+    status: "Live" as const,
   },
   {
-    slug: "paulo-ai-chatbot",
-    title: "Paulo AI Chatbot",
+    slug: "ai-blog-generator",
+    title: "AI Blog Generator",
     excerpt:
-      "Conversational AI chatbot with streaming responses, markdown rendering, and conversation history.",
-    tech: ["React", "Python", "OpenAI API"],
-    github: "https://github.com/josepaulotimbang/paulo-ai-chatbot",
+      "WordPress plugin that autonomously generates and publishes blog posts using Groq on a WP-Cron schedule.",
+    tech: ["PHP 8", "React 18", "Groq API", "WP-Cron", "GitHub Actions"],
+    github: "https://github.com/JPTWeb01/ai-blog-generator",
     live: null,
-    status: "Completed" as const,
+    status: "Live" as const,
   },
 ];
 
@@ -277,15 +277,17 @@ export default function HomePage() {
 
                   {/* Links */}
                   <div className="flex items-center gap-4 pt-4 border-t border-border/60">
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs text-subtle hover:text-foreground transition-colors"
-                    >
-                      <GitHubIcon size={13} />
-                      Code
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs text-subtle hover:text-foreground transition-colors"
+                      >
+                        <GitHubIcon size={13} />
+                        Code
+                      </a>
+                    )}
                     {project.live && (
                       <a
                         href={project.live}

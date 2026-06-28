@@ -16,9 +16,9 @@ const projects = [
     slug: "pamangan",
     title: "pamangan.com",
     excerpt:
-      "AI-powered Filipino recipe platform with search, AI recipe generation, grocery lists, nutrition analysis, and an admin dashboard.",
-    tech: ["React", "Flask", "Python", "MongoDB", "Gemini AI", "Groq"],
-    github: "https://github.com/josepaulotimbang/pamangan.com",
+      "AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, nutrition analysis, and an admin dashboard.",
+    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "Koyeb"],
+    github: null,
     live: "https://pamangan.com",
     status: "Live" as const,
   },
@@ -26,21 +26,41 @@ const projects = [
     slug: "devquiz",
     title: "DevQuiz",
     excerpt:
-      "Interactive developer quiz platform with categorized questions, real-time scoring, and a leaderboard.",
-    tech: ["React", "Node.js", "MySQL"],
-    github: "https://github.com/josepaulotimbang/devquiz",
-    live: null,
-    status: "In Progress" as const,
+      "Developer quiz platform with AI-generated questions, weekly scheduling, real-time scoring, and an admin panel.",
+    tech: ["React", "FastAPI", "Python", "AI Generation"],
+    github: "https://github.com/JPTWeb01/devquiz",
+    live: "https://devquiz.josepaulotimbang.com",
+    status: "Live" as const,
   },
   {
     slug: "paulo-ai-chatbot",
-    title: "Paulo AI Chatbot",
+    title: "Paulo AI Resume Chatbot",
     excerpt:
-      "Conversational AI chatbot with a custom React UI, streaming responses, and persistent conversation history.",
-    tech: ["React", "Python", "OpenAI API"],
-    github: "https://github.com/josepaulotimbang/paulo-ai-chatbot",
+      "AI-powered resume chatbot built with Python and Flask — answers recruiter questions about my background, embedded into WordPress as a plugin.",
+    tech: ["Python", "Flask", "Gemini API", "WordPress", "JavaScript", "Render.com"],
+    github: "https://github.com/JPTWeb01/paulo-ai-chatbot",
     live: null,
-    status: "Completed" as const,
+    status: "Live" as const,
+  },
+  {
+    slug: "ai-blog-generator",
+    title: "AI Blog Generator",
+    excerpt:
+      "WordPress plugin that autonomously generates and publishes AI-powered blog posts using the Groq API on a scheduled WP-Cron job.",
+    tech: ["PHP 8", "React 18", "Webpack", "Groq API", "WP REST API", "WP-Cron", "GitHub Actions"],
+    github: "https://github.com/JPTWeb01/ai-blog-generator",
+    live: null,
+    status: "Live" as const,
+  },
+  {
+    slug: "pawfurrytail",
+    title: "Pawfurrytail.com",
+    excerpt:
+      "Full-stack WooCommerce e-commerce store for pet products with custom theming, product management, and SEO optimisation.",
+    tech: ["WordPress", "WooCommerce", "PHP", "JavaScript", "SEO"],
+    github: null,
+    live: "https://pawfurrytail.com",
+    status: "Live" as const,
   },
 ];
 
@@ -112,15 +132,17 @@ export default function ProjectsPage() {
                         Live
                       </a>
                     )}
-                    <a
-                      href={project.github}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
-                    >
-                      <GitHubIcon size={13} />
-                      Code
-                    </a>
+                    {project.github && (
+                      <a
+                        href={project.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-1.5 text-xs text-muted hover:text-foreground transition-colors"
+                      >
+                        <GitHubIcon size={13} />
+                        Code
+                      </a>
+                    )}
                   </div>
                   <Link
                     href={`/projects/${project.slug}`}

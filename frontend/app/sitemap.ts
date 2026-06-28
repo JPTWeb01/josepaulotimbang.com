@@ -5,7 +5,7 @@ export const dynamic = "force-static";
 
 const BASE = "https://josepaulotimbang.com";
 
-const projectSlugs = ["pamangan", "devquiz", "paulo-ai-chatbot"];
+const projectSlugs = ["pamangan", "devquiz", "paulo-ai-chatbot", "ai-blog-generator", "pawfurrytail"];
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages: MetadataRoute.Sitemap = [
