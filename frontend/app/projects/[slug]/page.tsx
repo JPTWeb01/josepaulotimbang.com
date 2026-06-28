@@ -42,7 +42,7 @@ const projects: Record<string, {
       "Built a service layer that tries Gemini, catches any failure silently, and immediately retries with Groq. MongoDB text indexes on recipe name, cuisine, and tags made DB lookups fast enough to always run first.",
     lessons:
       "AI reliability is not guaranteed — always design for graceful fallback. MongoDB text indexes are powerful but require careful field selection. Separating AI logic into a service class makes it trivially swappable.",
-    github: null,
+    github: "https://github.com/JPTWeb01/pamangan.com",
     live: "https://pamangan.com",
   },
   devquiz: {

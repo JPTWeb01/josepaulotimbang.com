@@ -5,7 +5,7 @@ import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 const socials = [
   {
     label: "GitHub",
-    href: "https://github.com/josepaulotimbang",
+    href: "https://github.com/JPTWeb01",
     icon: GitHubIcon,
   },
   {

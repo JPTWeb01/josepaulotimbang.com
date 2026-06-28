@@ -11,7 +11,7 @@ const featuredProjects = [
     excerpt:
       "AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, and nutrition analysis.",
     tech: ["React 18", "Flask", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq"],
-    github: null,
+    github: "https://github.com/JPTWeb01/pamangan.com",
     live: "https://pamangan.com",
     status: "Live" as const,
   },
@@ -67,7 +67,7 @@ const jsonLd = {
   description:
     "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms using React, Python, PHP, Flask, FastAPI, and LLM APIs.",
   sameAs: [
-    "https://github.com/josepaulotimbang",
+    "https://github.com/JPTWeb01",
     "https://linkedin.com/in/josepaulotimbang",
   ],
   knowsAbout: [
@@ -173,7 +173,7 @@ export default function HomePage() {
             <div className="flex items-center gap-1">
               {[
                 {
-                  href: "https://github.com/josepaulotimbang",
+                  href: "https://github.com/JPTWeb01",
                   label: "GitHub",
                   icon: <GitHubIcon size={18} />,
                 },

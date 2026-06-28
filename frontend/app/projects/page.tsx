@@ -18,7 +18,7 @@ const projects = [
     excerpt:
       "AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, nutrition analysis, and an admin dashboard.",
     tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "Koyeb"],
-    github: null,
+    github: "https://github.com/JPTWeb01/pamangan.com",
     live: "https://pamangan.com",
     status: "Live" as const,
   },

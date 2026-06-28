@@ -62,12 +62,12 @@ export default function ContactPage() {
               <div>
                 <p className="text-xs text-subtle mb-0.5">GitHub</p>
                 <a
-                  href="https://github.com/josepaulotimbang"
+                  href="https://github.com/JPTWeb01"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-sm text-foreground hover:text-primary transition-colors"
                 >
-                  github.com/josepaulotimbang
+                  github.com/JPTWeb01
                 </a>
               </div>
             </div>
