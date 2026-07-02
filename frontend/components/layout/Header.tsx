@@ -33,15 +33,20 @@ export default function Header() {
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <Image
-            src="/logo.png"
-            alt="JPT Logo"
-            width={32}
-            height={32}
-            className="rounded-full transition-opacity group-hover:opacity-80"
-          />
-          <span className="text-sm font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors">
-            jose paulo<span className="text-primary">.</span>
+          <div className="relative w-11 h-11 shrink-0">
+            <Image
+              src="/logo.png"
+              alt="JPT Logo"
+              width={44}
+              height={44}
+              className="logo-roll-in rounded-full transition-opacity group-hover:opacity-80"
+            />
+            <span className="dust-puff dust-puff-1" />
+            <span className="dust-puff dust-puff-2" />
+            <span className="dust-puff dust-puff-3" />
+          </div>
+          <span className="name-shake text-sm font-semibold text-foreground tracking-tight group-hover:text-primary transition-colors">
+            Jose Paulo Timbang
           </span>
         </Link>
 
