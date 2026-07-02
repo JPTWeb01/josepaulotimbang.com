@@ -14,7 +14,7 @@ const experiences = [
     role: "Freelance Full-Stack Developer",
     company: "Personal Projects",
     type: "Freelance",
-    location: "Remote",
+    location: "",
     start_date: "2024-01-01",
     end_date: null,
     is_current: true,
@@ -159,7 +159,7 @@ export default function ExperiencePage() {
                         {exp.role}
                       </h2>
                       <p className="text-sm text-muted mt-0.5">
-                        {exp.company} &mdash; {exp.location}
+                        {exp.location ? `${exp.company} — ${exp.location}` : exp.company}
                       </p>
                     </div>
                     <div className="text-right shrink-0">
