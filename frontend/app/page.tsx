@@ -4,6 +4,12 @@ import Badge from "@/components/ui/Badge";
 import AnimateIn from "@/components/ui/AnimateIn";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import HeroPhoto from "@/components/ui/HeroPhoto";
+import HeroRipple from "@/components/ui/HeroRipple";
+import MatrixRain from "@/components/ui/MatrixRain";
+import ParallaxDots from "@/components/ui/ParallaxDots";
+import GlitchLabel from "@/components/ui/GlitchLabel";
+import TypeWriter from "@/components/ui/TypeWriter";
+import CountUp from "@/components/ui/CountUp";
 
 const featuredProjects = [
   {
@@ -39,10 +45,10 @@ const featuredProjects = [
 ];
 
 const skillGroups = [
-  { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS"] },
+  { label: "Frontend", items: ["React", "Next.js", "TypeScript", "Tailwind CSS", "Framer Motion"] },
   { label: "Backend", items: ["PHP / CodeIgniter", "Python / Flask", "REST APIs"] },
   { label: "Database", items: ["MySQL", "MongoDB"] },
-  { label: "AI", items: ["Gemini API", "OpenAI API", "Prompt Engineering"] },
+  { label: "AI", items: ["Gemini API", "OpenAI API", "Prompt Engineering", "Retrieval-Augmented Generation"] },
 ];
 
 const stats = [
@@ -91,8 +97,14 @@ export default function HomePage() {
       />
       {/* ─── Hero ─────────────────────────────────────────────── */}
       <section className="relative min-h-[92vh] flex items-center overflow-hidden">
-        {/* Dot grid background */}
-        <div className="absolute inset-0 bg-dot-grid opacity-40" />
+        {/* Dot grid background — drifts with the cursor */}
+        <ParallaxDots />
+
+        {/* Matrix code rain */}
+        <MatrixRain />
+
+        {/* Water ripple on mouse move */}
+        <HeroRipple />
 
         {/* Radial glow overlay */}
         <div className="absolute inset-0 bg-radial-gradient pointer-events-none"
@@ -109,31 +121,35 @@ export default function HomePage() {
             <div>
               {/* Availability pill */}
               <AnimateIn delay={0}>
-                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-success/10 border border-success/20 mb-8">
-                  <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                  <span className="text-xs font-medium text-success tracking-wide">
-                    Available for work
-                  </span>
+                <div className="group inline-flex items-center gap-3 mb-8">
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/25">
+                    <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
+                    <span className="text-xs font-medium text-primary tracking-wide">
+                      Available for work
+                    </span>
+                  </div>
+                  <Link
+                    href="/contact"
+                    className="hire-me-btn inline-flex items-center px-3 py-1.5 rounded-full bg-primary text-white text-xs font-medium tracking-wide"
+                  >
+                    Hire me
+                  </Link>
                 </div>
               </AnimateIn>
 
               {/* Name */}
               <AnimateIn delay={0.05}>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
-                  <span className="text-gradient">Jose Paulo</span>
-                  <br />
-                  <span className="text-muted/70">Timbang</span>
+                  <TypeWriter />
                 </h1>
               </AnimateIn>
 
               {/* Role */}
               <AnimateIn delay={0.1}>
                 <p className="text-lg sm:text-xl text-muted mb-4 font-light">
-                  Full-Stack Developer
+                  <GlitchLabel variant="fullstack" />
                   <span className="mx-3 text-border">·</span>
-                  <span className="text-gradient-primary font-medium">
-                    AI Integrations
-                  </span>
+                  <GlitchLabel variant="ai" initialDelay={1750} />
                 </p>
               </AnimateIn>
 
@@ -148,9 +164,9 @@ export default function HomePage() {
               {/* Description */}
               <AnimateIn delay={0.15}>
                 <p className="text-muted max-w-lg leading-relaxed mb-10 text-base">
-                  8 years building responsive web apps and AI-powered platforms.
+                  8 years building responsive websites, web apps, and AI-powered platforms.
                   Proficient in React, Python, PHP, Flask, FastAPI, and LLM
-                  integration using Gemini and Groq APIs.
+                  integration with modern AI APIs.
                 </p>
               </AnimateIn>
 
@@ -226,7 +242,7 @@ export default function HomePage() {
             <AnimateIn key={label} delay={i * 0.06}>
               <div className="text-center">
                 <p className="text-4xl font-bold text-foreground mb-1 font-mono">
-                  {value}
+                  <CountUp value={value} />
                 </p>
                 <p className="text-xs text-subtle uppercase tracking-wider">
                   {label}
