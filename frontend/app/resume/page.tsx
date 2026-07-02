@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 const experience = [
   {
-    company: "Various Clients",
+    company: "Personal Projects",
     role: "Freelance Full-Stack Developer",
     type: "Freelance",
     period: "2024 - Present",

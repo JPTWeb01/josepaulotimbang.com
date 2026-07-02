@@ -12,14 +12,14 @@ export const metadata: Metadata = {
 const experiences = [
   {
     role: "Freelance Full-Stack Developer",
-    company: "Various Clients",
+    company: "Personal Projects",
     type: "Freelance",
     location: "Remote",
     start_date: "2024-01-01",
     end_date: null,
     is_current: true,
     description:
-      "Building and deploying full-stack web applications and AI-powered platforms for clients. Shipping production projects end-to-end — from architecture to deployment — with CI/CD pipelines and cloud hosting.",
+      "Building and deploying full-stack web applications and AI-powered platforms as self-initiated projects. Shipping production projects end-to-end — from architecture to deployment — with CI/CD pipelines and cloud hosting.",
     highlights: [
       "Built pamangan.com — AI recipe platform with Google Gemini 2.0 Flash, Groq fallback, React, Flask, MongoDB Atlas, and JWT auth",
       "Shipped DevQuiz — developer quiz platform with AI-generated questions, role-based access, FastAPI, and GitHub Actions CI/CD",
