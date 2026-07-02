@@ -13,6 +13,10 @@ const SUGGESTIONS = [
   "How can I hire you?",
 ];
 
+const MAX_MESSAGE_LENGTH = 500;
+const MESSAGE_COOLDOWN_MS = 2500;
+const MAX_USER_MESSAGES = 25;
+
 type Message = { role: "user" | "model"; text: string };
 
 function escapeHtml(text: string) {
@@ -47,9 +51,13 @@ export default function ChatWidget() {
   const [history, setHistory] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [cooldown, setCooldown] = useState(false);
+  const [limitReached, setLimitReached] = useState(false);
   const messagesRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const hasGreeted = useRef(false);
+  const lastSentAtRef = useRef(0);
+  const userMessageCountRef = useRef(0);
 
   useEffect(() => {
     messagesRef.current?.scrollTo({ top: messagesRef.current.scrollHeight });
@@ -78,13 +86,25 @@ export default function ChatWidget() {
   }, [isOpen]);
 
   async function sendMessage(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || loading) return;
+    const trimmed = text.trim().slice(0, MAX_MESSAGE_LENGTH);
+    if (!trimmed || loading || cooldown || limitReached) return;
+
+    const now = Date.now();
+    if (now - lastSentAtRef.current < MESSAGE_COOLDOWN_MS) return;
+    lastSentAtRef.current = now;
+    setCooldown(true);
+    setTimeout(() => setCooldown(false), MESSAGE_COOLDOWN_MS);
+
+    userMessageCountRef.current += 1;
 
     setShowSuggestions(false);
     setMessages((prev) => [...prev, { role: "user", text: trimmed }]);
     setInput("");
     setLoading(true);
+
+    if (userMessageCountRef.current >= MAX_USER_MESSAGES) {
+      setLimitReached(true);
+    }
 
     const nextHistory = [...history, { role: "user" as const, text: trimmed }];
     setHistory(nextHistory);
@@ -103,6 +123,23 @@ export default function ChatWidget() {
       if (data.reply) {
         setMessages((prev) => [...prev, { role: "bot", text: data.reply }]);
         setHistory((prev) => [...prev, { role: "model", text: data.reply }]);
+        if (userMessageCountRef.current >= MAX_USER_MESSAGES) {
+          setMessages((prev) => [
+            ...prev,
+            {
+              role: "bot",
+              text: "That's the limit for this conversation. Feel free to reach me directly via the contact page for anything else!",
+            },
+          ]);
+        }
+      } else if (res.status === 429) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: "bot",
+            text: "You're sending messages a bit too fast — give it a moment and try again.",
+          },
+        ]);
       } else {
         setMessages((prev) => [
           ...prev,
@@ -208,13 +245,14 @@ export default function ChatWidget() {
             </div>
           )}
 
-          {showSuggestions && (
+          {showSuggestions && !limitReached && (
             <div className="flex flex-wrap gap-1.5 pl-8">
               {SUGGESTIONS.map((s) => (
                 <button
                   key={s}
                   onClick={() => sendMessage(s)}
-                  className="px-2.5 py-1.5 rounded-full border border-primary/40 text-primary text-xs hover:bg-primary hover:text-white transition-colors whitespace-nowrap"
+                  disabled={cooldown}
+                  className="px-2.5 py-1.5 rounded-full border border-primary/40 text-primary text-xs hover:bg-primary hover:text-white transition-colors whitespace-nowrap disabled:opacity-50"
                 >
                   {s}
                 </button>
@@ -233,14 +271,19 @@ export default function ChatWidget() {
             onKeyDown={(e) => {
               if (e.key === "Enter") sendMessage(input);
             }}
-            disabled={loading}
-            placeholder="Ask about Paulo's skills, experience..."
+            disabled={loading || limitReached}
+            maxLength={MAX_MESSAGE_LENGTH}
+            placeholder={
+              limitReached
+                ? "Conversation limit reached"
+                : "Ask about Paulo's skills, experience..."
+            }
             autoComplete="off"
             className="flex-1 bg-surface border border-border rounded-full px-3.5 py-2 text-base sm:text-[13.5px] text-foreground placeholder:text-subtle outline-none focus:border-primary transition-colors disabled:opacity-60"
           />
           <button
             onClick={() => sendMessage(input)}
-            disabled={loading || !input.trim()}
+            disabled={loading || cooldown || limitReached || !input.trim()}
             aria-label="Send message"
             className="w-9 h-9 rounded-full bg-primary text-white flex items-center justify-center shrink-0 hover:bg-primary/90 transition-colors disabled:opacity-50"
           >
