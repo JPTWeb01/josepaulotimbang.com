@@ -38,7 +38,7 @@ jobs:
           SSH_HOST: ${{ secrets.SSH_HOST }}
           SSH_PORT: ${{ secrets.SSH_PORT }}
           SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
-          DEPLOY_PATH: public_html
+          DEPLOY_PATH: domains/josepaulotimbang.com/public_html
         run: |
           set -euo pipefail
           mkdir -p ~/.ssh
