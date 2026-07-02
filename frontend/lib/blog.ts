@@ -12,6 +12,104 @@ export interface BlogPost {
 
 export const blogPosts: BlogPost[] = [
   {
+    slug: "rebuilding-portfolio-nextjs-cicd",
+    title: "Rebuilding My Portfolio: WordPress to a Custom Next.js CI/CD Pipeline",
+    excerpt:
+      "I rebuilt josepaulotimbang.com from a WordPress install into a custom Next.js 16 static site with its own GitHub Actions deploy pipeline — including a real production mistake that taught me more about rsync than any tutorial could.",
+    published_at: "2026-07-01",
+    read_time: 7,
+    cover_image: null,
+    categories: ["Projects", "DevOps"],
+    tags: ["Next.js", "TypeScript", "GitHub Actions", "SSH", "Hostinger", "CI/CD"],
+    content: `
+## Why Leave WordPress
+
+This site started on WordPress, like most of my early client work. It did the job, but it wasn't really *mine* — theme constraints, plugin bloat, and a database dependency for what is fundamentally a handful of static pages. I wanted something I fully controlled: a codebase I could version, animate, and deploy exactly the way I wanted.
+
+So I rebuilt it from scratch on Next.js 16 — React 19, TypeScript, Tailwind CSS, static export — and used the rebuild as an excuse to actually learn the deploy pipeline properly instead of dragging files over FTP.
+
+## The New Stack
+
+The frontend is a fully static export (\`output: "export"\` in \`next.config.ts\`), which means no Node server needed on the host — just files served directly by Hostinger. That simplicity is the whole point: fast, cheap, and nothing to patch or keep alive.
+
+I used the rebuild to add some personality to the homepage too — a matrix-rain canvas effect, a cursor-reactive dot-grid parallax, a typewriter role rotation, and animated stat counters. All gated behind \`prefers-reduced-motion\` checks, because flashy shouldn't come at the cost of accessibility.
+
+## Splitting Into Its Own Repository
+
+The project had been living as a subfolder inside a larger monorepo alongside unrelated projects. That's awkward for CI: GitHub Actions workflows expect to live at a repo root, and having multiple unrelated projects sharing one repo means every push triggers path-filtering gymnastics.
+
+The fix was \`git subtree split\`:
+
+\`\`\`bash
+git subtree split --prefix=josepaulotimbang.com -b jpt-standalone
+git push https://github.com/JPTWeb01/josepaulotimbang.com.git jpt-standalone:main
+\`\`\`
+
+This rewrites history so every commit that ever touched that subfolder becomes a normal commit at a new root — full history preserved, nothing squashed, but now it's a real standalone repository matching how my other projects are already set up.
+
+## From FTP to SSH
+
+The old deploy workflow used \`FTP-Deploy-Action\` — plaintext credentials, no encryption, and honestly no reason to still be using FTP in 2026. I switched it to \`rsync\` over SSH with a dedicated ed25519 deploy key:
+
+\`\`\`yaml
+- name: Deploy via rsync over SSH
+  run: |
+    rsync -avz --delete \\
+      -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no" \\
+      frontend/out/ \\
+      "$SSH_USERNAME@$SSH_HOST:$DEPLOY_PATH/"
+\`\`\`
+
+Key-based auth, scoped to exactly one deploy key that only exists in GitHub's encrypted secrets and Hostinger's authorized keys. Nothing else needed it.
+
+## The Mistake That Taught Me the Most
+
+Here's the part I almost didn't write about, but it's the most useful lesson from this whole rebuild.
+
+My Hostinger account hosts multiple projects under one domain's document root — \`domains/josepaulotimbang.com/public_html/\` isn't just this site, it also contains \`devquiz/\` and \`wordpress/\` as subfolders for two subdomains. I pointed the new deploy at that shared folder using \`rsync --delete\`, which — by design — deletes anything in the destination that isn't part of the current build output.
+
+I didn't account for the fact that "the destination" was a *shared* folder. The very next deploy wiped out both sibling projects, because neither exists in this project's build output. Lesson learned the expensive way: **\`--delete\` doesn't know about your other projects — it only knows about your source and your destination.**
+
+The fix was straightforward once I saw the actual damage:
+
+\`\`\`bash
+rsync -avz --delete \\
+  --exclude=/devquiz \\
+  --exclude=/wordpress \\
+  -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no" \\
+  frontend/out/ \\
+  "$SSH_USERNAME@$SSH_HOST:$DEPLOY_PATH/"
+\`\`\`
+
+rsync's exclude rules apply to deletions too, by default — no extra flag needed. DevQuiz recovered cleanly by re-running its own independent deploy workflow. The real fix wasn't the \`--exclude\` flags themselves, though — it was learning to actually map out what else lives in a shared destination *before* pointing a destructive flag at it, not after.
+
+## Fixing the Contact Form
+
+One more subtle bug: the contact form (Web3Forms) kept failing silently in production. The cause was a static-export-specific gotcha — environment variables have to be baked in at **build time**, since there's no server at runtime to read them from:
+
+\`\`\`yaml
+- name: Build static export
+  env:
+    NEXT_PUBLIC_WEB3FORMS_KEY: \${{ secrets.NEXT_PUBLIC_WEB3FORMS_KEY }}
+  run: npm run build
+\`\`\`
+
+Miss that step and the key compiles in as an empty string — the form submits, Web3Forms rejects it, and the failure is silent unless you're specifically checking. A good reminder that static exports trade server flexibility for exactly this kind of build-time rigidity.
+
+## What I Learned
+
+**1. \`git subtree split\` is the right tool for de-monorepo-ing a project.** Full history, clean root, no manual file surgery.
+
+**2. Prefer SSH keys over any password-based deploy method.** Scoped, revocable, and it's what CI should be using in the first place.
+
+**3. Never point a destructive rsync flag at a directory you don't fully control.** Map out what else lives there first — sibling subdomains, shared uploads, anything not tracked by *your* build.
+
+**4. Static exports need their secrets baked in at build time, not runtime.** If a static site's feature depends on an env var, it belongs in the build step, not just "somewhere in CI."
+
+The site is faster, fully version-controlled, and deploys in about a minute from a clean \`git push\`. Worth the rebuild — and worth the mistake, since I won't make that particular one again.
+    `.trim(),
+  },
+  {
     slug: "building-pamangan-ai-recipe-platform",
     title: "Building pamangan.com: An AI-Powered Recipe Platform",
     excerpt:
