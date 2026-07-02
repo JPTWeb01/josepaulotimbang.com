@@ -51,7 +51,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs text-subtle mb-0.5">Location</p>
-                <p className="text-sm text-foreground">Philippines</p>
+                <p className="text-sm text-foreground">Stittsville, ON, Canada</p>
               </div>
             </div>
 
@@ -95,8 +95,8 @@ export default function ContactPage() {
               Availability
             </p>
             <div className="flex items-center gap-2">
-              <span className="w-2 h-2 bg-success rounded-full" />
-              <span className="text-sm text-foreground font-medium">
+              <span className="w-2 h-2 bg-success rounded-full animate-pulse" />
+              <span className="text-sm text-primary font-medium">
                 Available for work
               </span>
             </div>

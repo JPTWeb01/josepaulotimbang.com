@@ -81,7 +81,7 @@ const skills = [
   { category: "Frontend", items: ["React", "JavaScript", "TypeScript", "HTML5/CSS3", "Next.js", "Bootstrap", "Tailwind CSS", "WordPress", "Shopify"] },
   { category: "Backend", items: ["Python", "PHP", "Flask", "FastAPI", "REST APIs", "SQLAlchemy"] },
   { category: "Databases", items: ["MySQL", "MongoDB", "PostgreSQL"] },
-  { category: "AI & APIs", items: ["Gemini API", "Groq API", "LLM Integration", "Prompt Engineering"] },
+  { category: "AI & APIs", items: ["Gemini API", "Groq API", "LLM Integration", "Prompt Engineering", "Retrieval-Augmented Generation"] },
   { category: "DevOps", items: ["Git", "GitHub Actions", "CI/CD", "Linux/SSH", "Render", "Hostinger"] },
   { category: "SEO & Design", items: ["Google Analytics", "Yoast SEO", "SEMrush", "Figma", "Photoshop"] },
 ];

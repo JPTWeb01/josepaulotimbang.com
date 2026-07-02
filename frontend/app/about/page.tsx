@@ -7,38 +7,45 @@ import Badge from "@/components/ui/Badge";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "Learn about Jose Paulo Timbang — Full-Stack Developer with 8 years of experience building web apps and AI-powered platforms. Based in Stittsville, ON, Canada.",
+    "Learn about Jose Paulo Timbang — Full-Stack Developer with 8 years of experience building responsive websites, web apps, and AI-powered platforms. Based in Stittsville, ON, Canada.",
 };
 
 const timeline = [
   {
     year: "2026",
-    title: "Portfolio Rebuild + pamangan.com",
+    title: "Portfolio Rebuild",
     description:
-      "Rebuilt personal portfolio from WordPress to a custom Next.js 16 stack. Shipped pamangan.com — a full-stack AI recipe platform using Google Gemini 2.0 Flash and Groq as fallback, with a React frontend, Flask REST API, MongoDB Atlas, and an admin dashboard.",
-    tags: ["Next.js", "React", "Flask", "MongoDB", "Gemini AI", "Groq"],
+      "Rebuilt personal portfolio from WordPress to a custom Next.js 16 stack — React 19, TypeScript, and Tailwind CSS, with custom animations, deployed as a static export to Hostinger via GitHub Actions.",
+    tags: ["Next.js", "React", "TypeScript", "Tailwind CSS"],
     current: true,
   },
   {
-    year: "2025",
-    title: "DevQuiz + AI Blog Generator",
+    year: "2026",
+    title: "pamangan.com",
     description:
-      "Built DevQuiz — a quiz platform with AI-generated questions (Groq llama-3.3-70b), role-based access, JWT auth, and a React 18 / FastAPI stack. Also shipped the AI Blog Generator, a WordPress plugin that autonomously writes and publishes posts using the Groq API via WP-Cron.",
-    tags: ["React", "FastAPI", "Python", "Groq", "PHP", "WordPress"],
+      "Shipped pamangan.com — a full-stack AI recipe platform using Google Gemini 2.0 Flash and Groq as fallback, with a React frontend, Flask REST API, MongoDB Atlas, and an admin dashboard.",
+    tags: ["React", "Flask", "MongoDB", "Gemini AI", "Groq"],
   },
   {
-    year: "2024",
+    year: "2026",
+    title: "DevQuiz",
+    description:
+      "Built DevQuiz — a quiz platform with AI-generated questions (Groq llama-3.3-70b), role-based access, JWT auth, and a React 18 / FastAPI stack.",
+    tags: ["React", "FastAPI", "Python", "Groq"],
+  },
+  {
+    year: "2026",
+    title: "AI Blog Generator",
+    description:
+      "Shipped the AI Blog Generator, a WordPress plugin that autonomously writes and publishes posts using the Groq API via WP-Cron.",
+    tags: ["PHP", "WordPress", "Groq"],
+  },
+  {
+    year: "2026",
     title: "LLM Integration & Paulo AI Chatbot",
     description:
       "Went deep on LLM integration and prompt engineering. Built the Paulo AI Resume Chatbot — a Gemini-powered chat widget embedded in WordPress as a custom PHP plugin, with a Python/Flask backend deployed on Render.com.",
     tags: ["Python", "Flask", "Gemini API", "WordPress", "Render"],
-  },
-  {
-    year: "2022",
-    title: "Relocated to Canada",
-    description:
-      "Moved to Stittsville, Ontario. Continued building full-stack and AI-powered projects while settling into the Canadian tech landscape.",
-    tags: ["Canada"],
   },
   {
     year: "2020–2022",
@@ -88,11 +95,19 @@ const values = [
   },
   {
     title: "Ship and iterate",
-    body: "Perfection is the enemy of done. Ship working software early, then improve based on real feedback.",
+    body: "From WordPress sites for US clients to full-stack AI platforms — eight years taught me that a live working product beats a perfect plan on paper. Ship early, learn from real users, then improve.",
   },
   {
     title: "Write readable code",
     body: "Code is read far more than it's written. Clarity is more valuable than cleverness.",
+  },
+  {
+    title: "LLM-augmented development",
+    body: "I use large language models as a core part of my workflow — not as a crutch, but as a force multiplier. LLMs help me research faster, debug smarter, generate boilerplate in seconds, and catch edge cases I might miss. The result is higher accuracy, faster delivery, and more mental bandwidth reserved for architecture and problem-solving that actually matters.",
+  },
+  {
+    title: "Wired for the screen",
+    body: "Sitting in front of a computer for hours solving hard problems isn't work to me — it's where I'm most alive. I have the patience to stay with a bug until it breaks, trace an issue through every layer, and not walk away until it's properly understood. Being genuinely computer-savvy means the machine is never the obstacle — I am always the one pushing it further.",
   },
 ];
 
@@ -115,9 +130,9 @@ export default function AboutPage() {
           <div className="grid sm:grid-cols-2 gap-6 text-[15px] text-muted leading-relaxed max-w-2xl">
             <p>
               I&apos;m Jose Paulo Timbang — a Full-Stack Developer with 8 years
-              of experience building and deploying responsive web applications
-              and AI-powered platforms. I&apos;m based in Stittsville, Ontario,
-              Canada.
+              of experience building and deploying responsive websites, web
+              applications, and AI-powered platforms. I&apos;m based in
+              Stittsville, Ontario, Canada.
             </p>
             <p>
               I work across the full stack — React and TypeScript on the
@@ -141,17 +156,17 @@ export default function AboutPage() {
               {
                 icon: "◈",
                 title: "Full Stack Development",
-                body: "PHP/CodeIgniter backends, React/Next.js frontends, MySQL databases — built for production from day one.",
+                body: "End-to-end ownership from database to deployed UI — React/Next.js frontends, PHP and Python (Flask/FastAPI) backends, MySQL and MongoDB data layers. I ship production-ready features, not just prototypes.",
               },
               {
                 icon: "◈",
                 title: "AI Integration",
-                body: "Integrating LLM APIs (Gemini, OpenAI, Groq) into web applications with fallback logic, caching, and prompt design.",
+                body: "Building practical AI features that hold up in production — LLM integration (Gemini, OpenAI, Groq) with fallback logic, caching, and careful prompt design, not just an API call bolted on.",
               },
               {
                 icon: "◈",
                 title: "Systems & Hardware",
-                body: "PC diagnosis, repair, OS installation, and network troubleshooting. I understand the full stack — software and silicon.",
+                body: "A hands-on understanding of the machines code runs on — PC diagnosis, repair, OS installs, and network troubleshooting. When something breaks at the hardware layer, I don't need to call someone else.",
               },
             ].map(({ icon, title, body }) => (
               <div
