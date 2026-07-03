@@ -2,6 +2,20 @@
 
 A personal portfolio and blog site for a full-stack developer, built as a decoupled Next.js frontend and a CodeIgniter 4 REST API, with an AI-powered chat assistant for visitors.
 
+**Live site:** [josepaulotimbang.com](https://josepaulotimbang.com)
+
+---
+
+## Screenshots
+
+| Home | Projects |
+|---|---|
+| ![Home](docs/screenshots/home.png) | ![Projects](docs/screenshots/projects.png) |
+
+| Blog | Resume |
+|---|---|
+| ![Blog](docs/screenshots/blog.png) | ![Resume](docs/screenshots/resume.png) |
+
 ---
 
 ## Introduction
