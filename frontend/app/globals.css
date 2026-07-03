@@ -247,7 +247,7 @@ body {
   transition: opacity 0.3s ease, transform 0.3s ease;
 }
 
-.group:hover .hire-me-btn {
+.group:hover .hire-me-btn:not(.hire-me-btn--revealed) {
   opacity: 1;
   pointer-events: auto;
   animation: hire-me-bounce 0.9s ease-out both;
