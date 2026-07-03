@@ -139,7 +139,7 @@ VALUES
 (
   'pamangan.com', 'pamangan',
   'AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, and nutrition analysis.',
-  '["React 18","Flask","Python","MongoDB Atlas","Gemini 1.5 Flash","Groq","PyMongo","Koyeb"]',
+  '["React 18","Flask","Python","MongoDB Atlas","Gemini 1.5 Flash","Groq","PyMongo","Hugging Face Spaces"]',
   'Full Stack / AI', 'active', 'https://pamangan.com', NULL,
   1, 1, NOW(), NOW()
 ),

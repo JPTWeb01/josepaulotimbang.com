@@ -177,7 +177,7 @@ The user never sees an error message. They just get a recipe — from whichever 
 ## Deployment
 
 - Frontend: React static build → Hostinger (rsync via GitHub Actions)
-- Backend: Flask on Koyeb (free tier)
+- Backend: Flask on Hugging Face Spaces (free tier)
 - Database: MongoDB Atlas (free M0 cluster)
 
 The whole production stack costs $0/month beyond the Hostinger domain.

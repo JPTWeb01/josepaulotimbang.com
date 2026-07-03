@@ -25,7 +25,7 @@ const projects: Record<string, {
     status: "Live",
     description:
       "pamangan.com is a full-stack AI-powered recipe platform celebrating Filipino cuisine and global flavors. Users can discover recipes, generate new ones via AI, build grocery lists from multiple recipes, get per-serving nutrition estimates, and plan meals for the week. The platform uses a database-first search strategy to minimise unnecessary API calls.",
-    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "PyMongo", "Bootstrap 5", "Koyeb", "Hostinger"],
+    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "PyMongo", "Bootstrap 5", "Hugging Face Spaces", "Hostinger"],
     features: [
       "AI recipe generation using Gemini 1.5 Flash (primary) and Groq llama-3.3-70b (fallback)",
       "Database-first search — MongoDB text index checked before any AI API call",
