@@ -220,9 +220,10 @@ body {
     animation: none;
   }
 
-  .group:hover .hire-me-btn {
+  .hire-me-btn {
     animation: none;
     opacity: 1;
+    pointer-events: auto;
     transform: translateY(0);
   }
 }
@@ -250,6 +251,14 @@ body {
   opacity: 1;
   pointer-events: auto;
   animation: hire-me-bounce 0.9s ease-out both;
+}
+
+/* Once the fall-in/bounce has played through, keep it shown */
+.hire-me-btn--revealed {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+  animation: none;
 }
 
 .animate-expr-1 { animation: expr-1 12s ease-in-out infinite; }

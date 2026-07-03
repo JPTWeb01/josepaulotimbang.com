@@ -10,6 +10,7 @@ import ParallaxDots from "@/components/ui/ParallaxDots";
 import GlitchLabel from "@/components/ui/GlitchLabel";
 import TypeWriter from "@/components/ui/TypeWriter";
 import CountUp from "@/components/ui/CountUp";
+import HireMeReveal from "@/components/ui/HireMeReveal";
 
 const featuredProjects = [
   {
@@ -121,20 +122,7 @@ export default function HomePage() {
             <div>
               {/* Availability pill */}
               <AnimateIn delay={0}>
-                <div className="group inline-flex items-center gap-3 mb-8">
-                  <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/10 border border-primary/25">
-                    <span className="w-1.5 h-1.5 rounded-full bg-success animate-pulse" />
-                    <span className="text-xs font-medium text-primary tracking-wide">
-                      Available for work
-                    </span>
-                  </div>
-                  <Link
-                    href="/contact"
-                    className="hire-me-btn inline-flex items-center px-3 py-1.5 rounded-full bg-primary text-white text-xs font-medium tracking-wide"
-                  >
-                    Hire me
-                  </Link>
-                </div>
+                <HireMeReveal />
               </AnimateIn>
 
               {/* Name */}
