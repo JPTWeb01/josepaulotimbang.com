@@ -22,7 +22,7 @@ A personal portfolio and blog site for a full-stack developer, built as a decoup
 
 josepaulotimbang.com was rebuilt from a WordPress site into a custom Next.js + CodeIgniter 4 stack to get full control over performance, design, and content structure without a CMS's overhead.
 
-The frontend is statically exported and deployed to shared hosting, the backend exposes a versioned JSON API for projects, skills, experience, and blog content, and a JWT-protected admin surface lets the site owner manage that content without a database client. A separate AI chatbot service lets visitors ask questions about the owner's skills and experience directly from the site.
+The frontend is statically exported and deployed to shared hosting. All live content (projects, skills, experience, blog posts, resume) is defined in the frontend source and baked into the static build. A CodeIgniter 4 REST API with a JWT-protected admin surface is also included in the repo, but **the live site does not call it yet** — see [Backend status](#backend-status). A separate AI chatbot service lets visitors ask questions about the owner's skills and experience directly from the site.
 
 ---
 
@@ -30,8 +30,9 @@ The frontend is statically exported and deployed to shared hosting, the backend 
 
 - **Recruiter or hiring manager** — browses projects, skills, and work experience, then reads the resume page before reaching out.
 - **Visitor curiosity** — opens the AI chat widget and asks "What are your skills?" or "Can you build WordPress sites?" instead of reading the whole site.
-- **Blog reader** — reads a technical write-up (e.g. the WordPress-to-Next.js rebuild post), filtered by category or tag, with related posts suggested at the end.
-- **Site owner (admin)** — logs in via `POST /v1/auth/login` to get a JWT, then creates/updates/deletes projects, posts, skills, and experience entries through the protected `/v1/admin/*` API.
+- **Blog reader** — reads a technical write-up (e.g. the WordPress-to-Next.js rebuild post), browses tags, with related posts suggested at the end.
+- **Recruiter (offline)** — downloads the PDF resume from the resume page; it is generated from the same data as the page.
+- **Site owner** — edits content in the frontend source (e.g. `app/resume/page.tsx`, `app/projects/`, `lib/blog.ts`) and pushes to `main` to redeploy.
 - **Prospective client** — submits a project inquiry through the contact form, delivered by email without needing a backend mail server.
 
 ---
@@ -41,13 +42,13 @@ The frontend is statically exported and deployed to shared hosting, the backend 
 - **Static-Exported Frontend** — Next.js App Router pages (`home`, `about`, `projects`, `skills`, `experience`, `blog`, `resume`, `contact`) built as static HTML for cheap shared hosting
 - **AI Resume Chatbot** — floating chat widget backed by an external AI service; answers questions about skills, experience, and projects with conversation history and clickable link/email formatting
 - **Chat Spam Prevention** — per-message length cap, a send cooldown, and a per-session message limit protect the chatbot from abuse
-- **Blog Engine** — posts with categories, tags, featured flag, view counts, and related-posts lookup, served from the CodeIgniter API
-- **Projects & Experience** — structured project entries (tech stack, live/GitHub links, featured flag) and work history, both fully CRUD-able via the admin API
-- **JWT-Protected Admin API** — single-admin login issues a signed JWT; protected routes cover messages, projects, posts, skills, and experience
+- **Blog** — Markdown posts with categories, tags, and related-posts lookup, defined in `lib/blog.ts` and rendered at build time
+- **Downloadable Resume PDF** — `npm run resume:pdf` builds the PDF from the resume page so the download never drifts from the site
+- **Projects & Experience** — structured project entries (tech stack, live/GitHub links, featured flag) and work history with detail pages per project
+- **JWT-Protected Admin API (not yet connected)** — single-admin login issues a signed JWT; protected routes cover messages, projects, posts, skills, and experience
 - **Contact Form** — client-side form posts directly to Web3Forms, so no backend mail service is required
-- **Contact Message Inbox** — inbound messages are also stored in the database with read/unread tracking, viewable via the admin API
 - **SEO Basics** — dynamic `sitemap.ts` and `robots.ts`, plus per-page metadata
-- **Health Check** — `GET /health` endpoint for uptime monitoring
+- **Health Check (API)** — `GET /health` endpoint for uptime monitoring
 
 ---
 
@@ -162,9 +163,14 @@ josepaulotimbang.com/
 │   │       ├── ParallaxDots.tsx
 │   │       └── TypeWriter.tsx
 │   ├── lib/
-│   │   ├── api.ts               # Fetch wrapper for the backend API
-│   │   ├── blog.ts               # Blog data helpers
+│   │   ├── api.ts               # Fetch wrapper for the backend API (not used yet)
+│   │   ├── blog.ts               # Blog posts and helpers
 │   │   └── utils.ts
+│   ├── public/
+│   │   └── jose-paulo-timbang-resume.pdf  # Generated by npm run resume:pdf
+│   ├── scripts/resume/
+│   │   ├── build-docx.mjs       # Builds the resume .docx from app/resume/page.tsx
+│   │   └── export-pdf.ps1       # Converts it to PDF with Microsoft Word
 │   └── package.json
 ├── database/
 │   └── migrations/
@@ -292,6 +298,20 @@ NEXT_PUBLIC_WEB3FORMS_KEY=your-web3forms-access-key
 
 ---
 
+## Updating the Resume PDF
+
+The resume page (`frontend/app/resume/page.tsx`) is the single source of truth. After editing it, regenerate the downloadable PDF and commit it:
+
+```bash
+cd frontend
+npm run resume:pdf   # Windows + Microsoft Word required for the PDF step
+git add public/jose-paulo-timbang-resume.pdf
+```
+
+`npm run resume:docx` builds only the Word file (into `scripts/resume/out/`, gitignored) and works on any OS.
+
+---
+
 ## Deployment Workflow
 
 ### Frontend — GitHub Actions → Hostinger
@@ -329,8 +349,12 @@ Browser
   │
   ▼
 Next.js static export (Hostinger public_html)
-  │  JWT in memory (admin-only, not used by public pages)
-  ▼
+  │  content baked in at build time from the frontend source
+  │
+  ├── contact form ──▶ Web3Forms
+  └── chat widget  ──▶ paulo-ai-chatbot (see below)
+
+Not connected to the live site yet:
 CodeIgniter 4 REST API — api.josepaulotimbang.com (Hostinger)
   │
   ├── Health Router      → GET /health
@@ -358,11 +382,14 @@ paulo-ai-chatbot (external service, separate repo)
 ```
 
 **Data flow — reading the blog:**
-1. Visitor opens `/blog`, frontend calls `GET /v1/posts` for the published list
-2. Selecting a post calls `GET /v1/posts/{slug}` and `POST /v1/posts/{slug}/view` to increment the view count
-3. `GET /v1/posts/related/{slug}` fetches related posts to show at the bottom
+1. Posts live in `frontend/lib/blog.ts` and are rendered to static HTML at build time
+2. Related posts are computed from shared tags/categories during the build
 
-**Data flow — admin content management:**
+### Backend status
+
+The CodeIgniter API, MySQL schema, and JWT admin routes are built but **not wired into the frontend** — no page imports `lib/api.ts`, and the contact form posts only to Web3Forms. The flows below describe how the API works if it is connected.
+
+**Data flow — admin content management (API only):**
 1. Owner submits credentials to `POST /v1/auth/login`; the API checks against `ADMIN_EMAIL` / `ADMIN_PASSWORD` and returns a signed JWT
 2. Subsequent requests to `/v1/admin/*` include the JWT in the `Authorization` header
 3. `JwtFilter` verifies the token's signature and expiry before the request reaches the controller
@@ -392,7 +419,7 @@ paulo-ai-chatbot (external service, separate repo)
 
 ### Chat & Contact Abuse Prevention
 - Chat widget: 500-character message cap, 2.5s send cooldown, 25-message session cap, and HTML-escaping before rendering bot replies (only `http(s)://` links and emails are turned into clickable links)
-- Contact form: submitted directly to Web3Forms from the client, so no backend mail credentials are exposed; inbound messages are also persisted to `contact_messages` for the admin inbox
+- Contact form: submitted directly to Web3Forms from the client, so no backend mail credentials are exposed (the API's `contact_messages` inbox exists but is not used by the live form)
 
 ### Data Protection
 - `.env` files are gitignored — secrets never committed to the repository
@@ -402,6 +429,12 @@ paulo-ai-chatbot (external service, separate repo)
 ---
 
 ## Recent Updates
+
+### pamangan.com and MyCuddlyCub.ca (Nov 2026)
+Resume, projects, experience, and home page now feature pamangan.com — an AI recipe platform (Gemini with Groq fallback) that also powers the ordering site of a small family-owned Kapampangan food business — and MyCuddlyCub.ca, a headless WordPress + WooCommerce store with a static Next.js storefront and Stripe Checkout.
+
+### Downloadable Resume PDF (Nov 2026)
+The resume page's Download PDF button now works. The PDF is generated from the page's own data with `npm run resume:pdf`, so the download and the page always match.
 
 ### AI Resume Chatbot
 A floating chat widget (`ChatWidget.tsx`) lets visitors ask questions about skills, experience, and projects. It greets the visitor, offers quick suggestion chips, keeps a rolling conversation history, and renders links/emails in bot replies as clickable elements.
