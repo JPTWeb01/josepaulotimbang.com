@@ -24,6 +24,16 @@ const featuredProjects = [
     status: "Live" as const,
   },
   {
+    slug: "mycuddlycub",
+    title: "MyCuddlyCub.ca",
+    excerpt:
+      "Canadian online store for baby and kids' products — headless WooCommerce, static Next.js storefront, and Stripe Checkout.",
+    tech: ["Next.js", "TypeScript", "WooCommerce", "Stripe"],
+    github: null,
+    live: "https://mycuddlycub.ca",
+    status: "Live" as const,
+  },
+  {
     slug: "devquiz",
     title: "DevQuiz",
     excerpt:
@@ -31,16 +41,6 @@ const featuredProjects = [
     tech: ["React", "FastAPI", "Python", "Groq AI"],
     github: "https://github.com/JPTWeb01/devquiz",
     live: "https://devquiz.josepaulotimbang.com",
-    status: "Live" as const,
-  },
-  {
-    slug: "ai-blog-generator",
-    title: "AI Blog Generator",
-    excerpt:
-      "WordPress plugin that autonomously generates and publishes blog posts using Groq on a WP-Cron schedule.",
-    tech: ["PHP 8", "React 18", "Groq API", "WP-Cron", "GitHub Actions"],
-    github: "https://github.com/JPTWeb01/ai-blog-generator",
-    live: null,
     status: "Live" as const,
   },
 ];
