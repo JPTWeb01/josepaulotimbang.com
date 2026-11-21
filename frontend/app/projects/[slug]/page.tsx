@@ -51,6 +51,34 @@ const projects: Record<string, {
     github: "https://github.com/JPTWeb01/pamangan.com",
     live: "https://pamangan.com",
   },
+  mycuddlycub: {
+    title: "MyCuddlyCub.ca",
+    excerpt: "Headless WooCommerce store with a static Next.js storefront",
+    status: "Live",
+    description:
+      "MyCuddlyCub.ca is a Canadian online store for plush toys, baby blankets, and nursery essentials, with products dropshipped from multiple suppliers. WordPress and WooCommerce run headless on a CMS subdomain, while the storefront is a statically exported Next.js site on shared hosting. Prices, stock, cart, and checkout are fetched live in the browser, and the static site rebuilds automatically whenever the catalogue changes.",
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "WordPress", "WooCommerce", "PHP", "Stripe", "Docker", "GitHub Actions", "Hostinger"],
+    features: [
+      "Static Next.js storefront fed by the public WooCommerce Store API — no API keys in the frontend",
+      "Product pages with live price, stock, reviews, related products, and structured data",
+      "Browser cart with live prices, shipping estimates, and Stripe Checkout",
+      "Stripe webhooks mark orders paid and capture shipping addresses",
+      "Admin switch between Stripe sandbox and live mode, so checkout never goes live by accident",
+      "Track Order page with order status stepper and tracking details, backed by a custom REST endpoint",
+      "Custom mycuddlycub-core WordPress plugin: supplier layer, CORS lock-down, and storefront rebuild trigger",
+      "Automatic rebuilds: catalogue changes fire a debounced GitHub repository_dispatch that redeploys the site",
+      "Department search, shop filters, deals page, sitemap, and social share images",
+      "Shop emails sent over SMTP; Docker Compose local environment with Mailpit",
+    ],
+    challenges:
+      "Running a real store on cheap shared hosting while keeping prices and stock accurate, since a static export cannot render anything at request time.",
+    solutions:
+      "Pre-rendered every page at build time from the WooCommerce Store API, re-read live price and stock in the browser, and had the WordPress plugin trigger a debounced GitHub Actions rebuild whenever products change.",
+    lessons:
+      "Headless commerce is a good fit for static hosting when the build pipeline is automated. Payment flows need explicit safeguards, so going live with Stripe is always a deliberate admin action.",
+    github: null,
+    live: "https://mycuddlycub.ca",
+  },
   devquiz: {
     title: "DevQuiz",
     excerpt: "AI-powered developer quiz platform with weekly scheduling",

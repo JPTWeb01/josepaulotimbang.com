@@ -18,11 +18,12 @@ const experience = [
     current: true,
     points: [
       "Built pamangan.com - AI recipe platform (Gemini with Groq fallback) for recipe generation, grocery lists, and nutrition info, integrated into the ordering site for a small family-owned Kapampangan food business; React, Flask, MongoDB Atlas, JWT admin",
+      "Launched MyCuddlyCub.ca - Canadian dropshipping store for baby and kids' products: headless WooCommerce with a static Next.js/TypeScript storefront, Stripe Checkout with webhooks, order tracking, and auto-rebuilds on catalogue changes via GitHub Actions",
       "Shipped DevQuiz - quiz platform with AI-generated questions, FastAPI, role-based access, GitHub Actions CI/CD",
       "Created AI Blog Generator WordPress plugin using Groq API, React 18, Webpack, and WP-Cron",
       "Built Paulo AI Resume Chatbot (Gemini API) embedded as a WordPress PHP plugin, backend on Render.com",
     ],
-    tech: ["React", "Python", "Flask", "FastAPI", "PHP", "MongoDB", "MySQL", "Gemini API", "Groq API"],
+    tech: ["React", "Next.js", "TypeScript", "Python", "Flask", "FastAPI", "PHP", "WooCommerce", "Stripe", "MongoDB", "MySQL", "Gemini API", "Groq API"],
   },
   {
     company: "Savvytech Computer Services",
