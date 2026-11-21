@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { MessageCircle, X, Send } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 const CHATBOT_URL =
   process.env.NEXT_PUBLIC_CHATBOT_URL || "https://paulo-ai-chatbot.onrender.com";
@@ -96,6 +97,7 @@ export default function ChatWidget() {
     setTimeout(() => setCooldown(false), MESSAGE_COOLDOWN_MS);
 
     userMessageCountRef.current += 1;
+    track("chat_message", { message_number: userMessageCountRef.current });
 
     setShowSuggestions(false);
     setMessages((prev) => [...prev, { role: "user", text: trimmed }]);
@@ -294,7 +296,7 @@ export default function ChatWidget() {
 
       {/* Toggle button */}
       <button
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => { if (!isOpen) track("chat_open"); setIsOpen((v) => !v); }}
         aria-label={isOpen ? "Close chat" : "Open chat"}
         className="w-14 h-14 rounded-full bg-primary text-white glow-primary-sm flex items-center justify-center hover:bg-primary/90 active:scale-95 transition-all shrink-0 pointer-events-auto"
       >

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { Send } from "lucide-react";
+import { track } from "@/lib/analytics";
 
 type Status = "idle" | "loading" | "success" | "error";
 
@@ -43,6 +44,7 @@ export default function ContactForm() {
       if (!res.ok || json.success === false) throw new Error(json.message);
 
       setStatus("success");
+      track("contact_submit", { subject: form.subject.slice(0, 100) });
       setForm({ name: "", email: "", subject: "", message: "" });
     } catch {
       setStatus("error");

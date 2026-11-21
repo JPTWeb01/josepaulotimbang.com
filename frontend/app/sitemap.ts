@@ -17,6 +17,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/resume`, lastModified: new Date(), priority: 0.8, changeFrequency: "monthly" },
     { url: `${BASE}/blog`, lastModified: new Date(), priority: 0.8, changeFrequency: "weekly" },
     { url: `${BASE}/contact`, lastModified: new Date(), priority: 0.6, changeFrequency: "yearly" },
+    { url: `${BASE}/privacy`, lastModified: new Date(), priority: 0.3, changeFrequency: "yearly" },
   ];
 
   const projectPages: MetadataRoute.Sitemap = projectSlugs.map((slug) => ({

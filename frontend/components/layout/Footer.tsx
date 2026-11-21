@@ -2,6 +2,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { Mail } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
+import CookieSettingsLink from "@/components/ui/CookieSettingsLink";
 
 const socials = [
   {
@@ -37,6 +38,11 @@ export default function Footer() {
             &copy; {new Date().getFullYear()} Jose Paulo Timbang. All rights reserved.
           </p>
         </Link>
+
+        <div className="flex items-center gap-4 text-sm text-subtle">
+          <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy</Link>
+          <CookieSettingsLink className="hover:text-foreground transition-colors" />
+        </div>
 
         <div className="flex items-center gap-2">
           {socials.map(({ label, href, icon: Icon }) => (
