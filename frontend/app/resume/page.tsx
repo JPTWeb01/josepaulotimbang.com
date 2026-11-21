@@ -17,7 +17,7 @@ const experience = [
     period: "2024 - Present",
     current: true,
     points: [
-      "Built pamangan.com - AI recipe platform with Gemini 2.0 Flash, Groq fallback, React, Flask, MongoDB Atlas, JWT auth",
+      "Built pamangan.com - AI recipe platform (Gemini with Groq fallback) for recipe generation, grocery lists, and nutrition info, integrated into the ordering site for a small family-owned Kapampangan food business; React, Flask, MongoDB Atlas, JWT admin",
       "Shipped DevQuiz - quiz platform with AI-generated questions, FastAPI, role-based access, GitHub Actions CI/CD",
       "Created AI Blog Generator WordPress plugin using Groq API, React 18, Webpack, and WP-Cron",
       "Built Paulo AI Resume Chatbot (Gemini API) embedded as a WordPress PHP plugin, backend on Render.com",

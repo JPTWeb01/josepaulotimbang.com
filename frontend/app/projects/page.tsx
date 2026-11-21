@@ -16,8 +16,8 @@ const projects = [
     slug: "pamangan",
     title: "pamangan.com",
     excerpt:
-      "AI-powered Filipino recipe platform with recipe discovery, AI generation, grocery lists, nutrition analysis, and an admin dashboard.",
-    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "Hugging Face Spaces"],
+      "AI-powered recipe platform with recipe discovery, AI generation, grocery lists, nutrition analysis, and an admin dashboard — integrated into the ordering site for a small family-owned Kapampangan food business.",
+    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini", "Groq", "Hugging Face Spaces"],
     github: "https://github.com/JPTWeb01/pamangan.com",
     live: "https://pamangan.com",
     status: "Live" as const,

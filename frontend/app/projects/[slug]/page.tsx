@@ -21,13 +21,13 @@ const projects: Record<string, {
 }> = {
   pamangan: {
     title: "pamangan.com",
-    excerpt: "AI-powered Filipino recipe platform",
+    excerpt: "AI-powered recipe platform for a family-owned food business",
     status: "Live",
     description:
-      "pamangan.com is a full-stack AI-powered recipe platform celebrating Filipino cuisine and global flavors. Users can discover recipes, generate new ones via AI, build grocery lists from multiple recipes, get per-serving nutrition estimates, and plan meals for the week. The platform uses a database-first search strategy to minimise unnecessary API calls.",
-    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini 1.5 Flash", "Groq", "PyMongo", "Bootstrap 5", "Hugging Face Spaces", "Hostinger"],
+      "pamangan.com is a full-stack AI-powered recipe platform celebrating Filipino cuisine and global flavors. Users can search the recipe library or generate any recipe with AI, build grocery lists, get per-serving nutrition estimates, learn the history behind each dish, and plan meals for the week. A database-first search strategy keeps AI API calls to a minimum. The platform now lives on as the Recipe Kitchen inside the website for Pamangan, a small family-owned Kapampangan food business in Stittsville and Kanata (Ottawa), which adds a menu, a pre-order flow, and dish requests.",
+    tech: ["React 18", "Flask", "Python", "MongoDB Atlas", "Gemini", "Groq", "PyMongo", "Bootstrap 5", "Google Analytics 4", "Hugging Face Spaces", "Hostinger"],
     features: [
-      "AI recipe generation using Gemini 1.5 Flash (primary) and Groq llama-3.3-70b (fallback)",
+      "AI recipe generation in the Recipe Kitchen using Google Gemini (primary) and Groq gpt-oss-20b (fallback), with configurable models",
       "Database-first search — MongoDB text index checked before any AI API call",
       "AI grocery list generation from multiple selected recipes",
       "AI nutritional breakdown per serving with macro estimates",
@@ -35,6 +35,12 @@ const projects: Record<string, {
       "Weekly meal planner saved to localStorage",
       "Admin dashboard with JWT authentication and recipe CRUD",
       "Pexels image integration and ImgBB upload for recipe photos",
+      "Business site: menu with best sellers, half orders, and seasonal specials",
+      "Pre-order form that builds a ready-to-send text or Messenger message",
+      "\"Request a dish\" form on the menu page, managed from the admin dashboard",
+      "Rate limits and spam protection on the AI endpoints and admin login",
+      "SEO layer with per-page meta, recipe/menu/FAQ/local-business schema, and a sitemap",
+      "Google Analytics 4 with a consent banner and an admin analytics dashboard",
     ],
     challenges:
       "Coordinating two AI providers with silent fallback so users never see an error. Also ensuring the database-first search was fast enough to avoid unnecessary API calls on every keystroke.",

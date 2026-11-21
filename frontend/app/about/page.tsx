@@ -23,7 +23,7 @@ const timeline = [
     year: "2026",
     title: "pamangan.com",
     description:
-      "Shipped pamangan.com — a full-stack AI recipe platform using Google Gemini 2.0 Flash and Groq as fallback, with a React frontend, Flask REST API, MongoDB Atlas, and an admin dashboard.",
+      "Shipped pamangan.com — a full-stack AI recipe platform using Google Gemini with Groq as fallback, built on React, Flask, MongoDB Atlas, and an admin dashboard. It now also serves as the website for Pamangan, a small family-owned Kapampangan food business in Ottawa.",
     tags: ["React", "Flask", "MongoDB", "Gemini AI", "Groq"],
   },
   {

@@ -21,7 +21,7 @@ const experiences = [
     description:
       "Building and deploying full-stack web applications and AI-powered platforms as self-initiated projects. Shipping production projects end-to-end — from architecture to deployment — with CI/CD pipelines and cloud hosting.",
     highlights: [
-      "Built pamangan.com — AI recipe platform with Google Gemini 2.0 Flash, Groq fallback, React, Flask, MongoDB Atlas, and JWT auth",
+      "Built pamangan.com — AI recipe platform with Google Gemini and Groq fallback, React, Flask, MongoDB Atlas, and a JWT admin dashboard, now powering the website of a small family-owned Kapampangan food business",
       "Shipped DevQuiz — developer quiz platform with AI-generated questions, role-based access, FastAPI, and GitHub Actions CI/CD",
       "Created AI Blog Generator — WordPress plugin using Groq API, React 18, Webpack, and WP-Cron for autonomous post scheduling",
       "Built Paulo AI Resume Chatbot — Gemini-powered chat widget embedded as a WordPress PHP plugin, backend on Render.com",
