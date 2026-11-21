@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "resume:docx": "node scripts/resume/build-docx.mjs",
+    "resume:pdf": "npm run resume:docx && powershell -NoProfile -ExecutionPolicy Bypass -File scripts/resume/export-pdf.ps1"
   },
   "dependencies": {
     "framer-motion": "^12.42.0",
@@ -21,6 +23,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "docx": "^9.16.0",
     "eslint": "^9",
     "eslint-config-next": "16.2.9",
     "tailwindcss": "^4",
