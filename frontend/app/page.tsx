@@ -27,8 +27,8 @@ const featuredProjects = [
     slug: "mycuddlycub",
     title: "MyCuddlyCub.ca",
     excerpt:
-      "Canadian online store for baby and kids' products — headless WooCommerce, static Next.js storefront, and Stripe Checkout.",
-    tech: ["Next.js", "TypeScript", "WooCommerce", "Stripe"],
+      "Canadian online store for baby and kids' products — headless WordPress + WooCommerce, static Next.js storefront, and Stripe Checkout.",
+    tech: ["Next.js", "TypeScript", "Headless WordPress", "WooCommerce", "Stripe"],
     github: null,
     live: "https://mycuddlycub.ca",
     status: "Live" as const,

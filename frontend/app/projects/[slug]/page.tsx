@@ -53,11 +53,11 @@ const projects: Record<string, {
   },
   mycuddlycub: {
     title: "MyCuddlyCub.ca",
-    excerpt: "Headless WooCommerce store with a static Next.js storefront",
+    excerpt: "Headless WordPress + WooCommerce store with a static Next.js storefront",
     status: "Live",
     description:
       "MyCuddlyCub.ca is a Canadian online store for plush toys, baby blankets, and nursery essentials, with products dropshipped from multiple suppliers. WordPress and WooCommerce run headless on a CMS subdomain, while the storefront is a statically exported Next.js site on shared hosting. Prices, stock, cart, and checkout are fetched live in the browser, and the static site rebuilds automatically whenever the catalogue changes.",
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "WordPress", "WooCommerce", "PHP", "Stripe", "Docker", "GitHub Actions", "Hostinger"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "shadcn/ui", "Headless WordPress", "WooCommerce", "PHP", "Stripe", "Docker", "GitHub Actions", "Hostinger"],
     features: [
       "Static Next.js storefront fed by the public WooCommerce Store API — no API keys in the frontend",
       "Product pages with live price, stock, reviews, related products, and structured data",
