@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight, Clock, Calendar } from "lucide-react";
 import Badge from "@/components/ui/Badge";
@@ -6,11 +7,12 @@ import AnimateIn from "@/components/ui/AnimateIn";
 import { blogPosts, getAllCategories } from "@/lib/blog";
 import { formatDate } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Blog",
   description:
-    "Articles by Jose Paulo Timbang on web development, AI engineering, and software craftsmanship.",
-};
+    "Articles by Jose Paulo Timbang on web development, AI engineering, Next.js, Python and lessons learned from building real projects.",
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const categories = getAllCategories();

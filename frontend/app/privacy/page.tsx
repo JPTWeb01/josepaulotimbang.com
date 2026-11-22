@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Privacy",
-  description: "What data josepaulotimbang.com collects, why, and how long it is kept.",
-  alternates: { canonical: "/privacy" },
-};
+  description:
+    "What data josepaulotimbang.com collects, why, and how long it is kept.",
+  path: "/privacy",
+});
 
 const sections: { title: string; body: string[] }[] = [
   {

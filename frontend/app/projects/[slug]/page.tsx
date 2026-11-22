@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowLeft, ExternalLink, CheckCircle } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -185,7 +186,18 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const project = projects[slug];
   if (!project) return { title: "Not Found" };
-  return { title: project.title, description: project.excerpt };
+  return pageMetadata({
+    title: project.title,
+    description: projectDescription(project.title, project.excerpt, project.tech),
+    path: `/projects/${slug}`,
+  });
+}
+
+/** Search-result summary (Google shows ~160 characters). */
+function projectDescription(title: string, excerpt: string, tech: string[]): string {
+  const summary = excerpt.replace(/my background/i, "his background");
+  const full = `${title} by Jose Paulo Timbang: ${summary}. Built with ${tech.slice(0, 3).join(", ")}.`;
+  return full.length <= 160 ? full : `${title} by Jose Paulo Timbang: ${summary}.`;
 }
 
 export default async function ProjectDetailPage({ params }: { params: Params }) {

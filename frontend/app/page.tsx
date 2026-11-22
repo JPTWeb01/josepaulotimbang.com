@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowRight, Mail, ExternalLink, MapPin } from "lucide-react";
 import Badge from "@/components/ui/Badge";
@@ -10,6 +11,7 @@ import ParallaxDots from "@/components/ui/ParallaxDots";
 import GlitchLabel from "@/components/ui/GlitchLabel";
 import TypeWriter from "@/components/ui/TypeWriter";
 import CountUp from "@/components/ui/CountUp";
+import { HOME_DESCRIPTION, OG_IMAGE, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo";
 import HireMeReveal from "@/components/ui/HireMeReveal";
 
 const featuredProjects = [
@@ -65,15 +67,33 @@ const statusStyles: Record<string, string> = {
   Completed: "bg-card text-muted border border-border",
 };
 
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: SITE_NAME,
+    url: "/",
+    title: SITE_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+};
+
 const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
-  name: "Jose Paulo Timbang",
-  url: "https://josepaulotimbang.com",
+  name: SITE_NAME,
+  url: SITE_URL + "/",
   email: "contactme@josepaulotimbang.com",
-  jobTitle: "Full-Stack Developer",
-  description:
-    "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms using React, Python, PHP, Flask, FastAPI, and LLM APIs.",
+  jobTitle: "Full-Stack & AI Developer",
+  description: HOME_DESCRIPTION,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Stittsville",
+    addressRegion: "ON",
+    addressCountry: "CA",
+  },
   sameAs: [
     "https://github.com/JPTWeb01",
     "https://linkedin.com/in/josepaulotimbang",
@@ -85,7 +105,11 @@ const jsonLd = {
     "PHP",
     "CodeIgniter 4",
     "MySQL",
+    "Python",
+    "Flask",
+    "FastAPI",
     "AI APIs",
+    "LLM integration",
   ],
 };
 
@@ -128,7 +152,12 @@ export default function HomePage() {
               {/* Name */}
               <AnimateIn delay={0.05}>
                 <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight mb-6">
-                  <TypeWriter />
+                  {/* Real text for search engines and screen readers; the
+                      typewriter starts empty, so it is hidden from them. */}
+                  <span className="sr-only">Jose Paulo Timbang</span>
+                  <span aria-hidden="true">
+                    <TypeWriter />
+                  </span>
                 </h1>
               </AnimateIn>
 

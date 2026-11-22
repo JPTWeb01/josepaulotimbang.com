@@ -1,14 +1,16 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import AnimateIn from "@/components/ui/AnimateIn";
 import Badge from "@/components/ui/Badge";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "About",
   description:
-    "Learn about Jose Paulo Timbang — Full-Stack Developer with 8 years of experience building responsive websites, web apps, and AI-powered platforms. Based in Stittsville, ON, Canada.",
-};
+    "Learn about Jose Paulo Timbang, a Full-Stack & AI Developer in Ottawa with 8 years of experience building websites, web apps and AI-powered platforms.",
+  path: "/about",
+});
 
 const timeline = [
   {

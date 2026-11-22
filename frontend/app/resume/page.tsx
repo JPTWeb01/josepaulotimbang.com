@@ -1,13 +1,15 @@
 ﻿import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { Download, ExternalLink, MapPin, Mail, Phone } from "lucide-react";
 import AnimateIn from "@/components/ui/AnimateIn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Resume",
   description:
-    "Resume of Jose Paulo Timbang - Full-Stack Developer with 8 years of experience building web apps and AI-powered platforms.",
-};
+    "Resume of Jose Paulo Timbang, Full-Stack & AI Developer with 8 years of experience building web apps and AI-powered platforms. Download the PDF.",
+  path: "/resume",
+});
 
 const experience = [
   {

@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import Link from "next/link";
 import { ExternalLink } from "lucide-react";
 import Badge from "@/components/ui/Badge";
 import AnimateIn from "@/components/ui/AnimateIn";
 import { GitHubIcon } from "@/components/ui/BrandIcons";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Projects",
   description:
-    "Projects built by Jose Paulo Timbang — web applications, AI tools, and full-stack systems.",
-};
+    "Projects by Jose Paulo Timbang: AI-powered web apps, e-commerce stores and full-stack systems built with React, Next.js, Python, PHP and LLM APIs.",
+  path: "/projects",
+});
 
 const projects = [
   {

@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import { Mail, MapPin } from "lucide-react";
 import { GitHubIcon, LinkedInIcon } from "@/components/ui/BrandIcons";
 import ContactForm from "./ContactForm";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Contact",
   description:
-    "Get in touch with Jose Paulo Timbang — available for freelance work, full-time roles, and collaboration.",
-};
+    "Contact Jose Paulo Timbang, Full-Stack & AI Developer in Ottawa, about freelance work, full-time roles and collaboration.",
+  path: "/contact",
+});
 
 export default function ContactPage() {
   return (

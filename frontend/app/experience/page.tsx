@@ -1,13 +1,15 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import AnimateIn from "@/components/ui/AnimateIn";
 import Badge from "@/components/ui/Badge";
 import { formatMonthYear } from "@/lib/utils";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Experience",
   description:
-    "Professional experience of Jose Paulo Timbang — Full-Stack Developer with 8 years of experience in web development and AI integration.",
-};
+    "Professional experience of Jose Paulo Timbang, Full-Stack & AI Developer with 8 years of experience in web development and AI integration.",
+  path: "/experience",
+});
 
 const experiences = [
   {

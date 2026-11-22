@@ -2,6 +2,8 @@ export interface BlogPost {
   slug: string;
   title: string;
   excerpt: string;
+  /** Shorter summary for Google results (~160 chars); falls back to excerpt. */
+  meta_description?: string;
   content: string;
   cover_image: string | null;
   published_at: string;
@@ -16,6 +18,8 @@ export const blogPosts: BlogPost[] = [
     title: "Rebuilding My Portfolio: WordPress to a Custom Next.js CI/CD Pipeline",
     excerpt:
       "I rebuilt josepaulotimbang.com from a WordPress install into a custom Next.js 16 static site with its own GitHub Actions deploy pipeline — including a real production mistake that taught me more about rsync than any tutorial could.",
+    meta_description:
+      "How I rebuilt my portfolio from WordPress into a static Next.js 16 site with a GitHub Actions deploy pipeline, and the rsync mistake that taught me the most.",
     published_at: "2026-07-01",
     read_time: 7,
     cover_image: null,
@@ -188,6 +192,8 @@ The whole production stack costs $0/month beyond the Hostinger domain.
     title: "Why I'm Transitioning from Web Dev to AI Engineering",
     excerpt:
       "The web is getting smarter. Here's why I decided to add AI engineering to my skillset, what that journey looks like from a self-taught developer's perspective, and the projects I'm building along the way.",
+    meta_description:
+      "Why I'm adding AI engineering to my web development skills: what the journey looks like for a self-taught developer and the AI projects I'm building.",
     published_at: "2026-04-10",
     read_time: 5,
     cover_image: null,
@@ -248,6 +254,8 @@ The demand for that skill set is only going to grow.
     title: "PHP to Python: Switching Backend Languages Mid-Career",
     excerpt:
       "I spent years building backends in PHP and CodeIgniter. Then I learned Python and Flask for AI projects. Here's what's different, what's the same, and what I'd tell myself if I were starting over.",
+    meta_description:
+      "After years of PHP and CodeIgniter, I learned Python and Flask for AI projects. What's different, what's the same, and what I'd tell my past self.",
     published_at: "2026-03-02",
     read_time: 6,
     cover_image: null,

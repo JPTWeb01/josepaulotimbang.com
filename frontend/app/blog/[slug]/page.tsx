@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { absoluteUrl, OG_IMAGE, pageMetadata, SITE_NAME, SITE_URL } from "@/lib/seo";
 import Link from "next/link";
 import { ArrowLeft, Clock, Calendar } from "lucide-react";
 import { notFound } from "next/navigation";
@@ -17,16 +18,13 @@ export async function generateMetadata({ params }: { params: Params }): Promise<
   const { slug } = await params;
   const post = getPost(slug);
   if (!post) return { title: "Post Not Found" };
-  return {
+  return pageMetadata({
     title: post.title,
-    description: post.excerpt,
-    openGraph: {
-      title: post.title,
-      description: post.excerpt,
-      type: "article",
-      publishedTime: post.published_at,
-    },
-  };
+    socialTitle: post.title,
+    description: post.meta_description ?? post.excerpt,
+    path: `/blog/${post.slug}`,
+    article: { publishedTime: post.published_at, tags: post.tags },
+  });
 }
 
 export default async function BlogPostPage({ params }: { params: Params }) {
@@ -37,8 +35,27 @@ export default async function BlogPostPage({ params }: { params: Params }) {
   const related = getRelatedPosts(slug);
   const html = await marked(post.content, { async: false }) as string;
 
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: post.title,
+    description: post.meta_description ?? post.excerpt,
+    datePublished: post.published_at,
+    url: absoluteUrl(`/blog/${post.slug}`),
+    mainEntityOfPage: absoluteUrl(`/blog/${post.slug}`),
+    image: SITE_URL + OG_IMAGE.url,
+    keywords: post.tags.join(", "),
+    articleSection: post.categories,
+    author: { "@type": "Person", name: SITE_NAME, url: SITE_URL + "/" },
+    publisher: { "@type": "Person", name: SITE_NAME, url: SITE_URL + "/" },
+  };
+
   return (
     <div className="max-w-3xl mx-auto px-6 py-24">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+      />
       {/* Back link */}
       <Link
         href="/blog"

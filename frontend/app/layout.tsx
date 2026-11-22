@@ -5,6 +5,7 @@ import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
 import ChatWidget from "@/components/ui/ChatWidget";
 import Analytics from "@/components/ui/Analytics";
+import { HOME_DESCRIPTION, OG_IMAGE, SITE_NAME, SITE_TITLE, SITE_URL } from "@/lib/seo";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,51 +18,50 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://josepaulotimbang.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: "Jose Paulo Timbang — Full-Stack Developer",
+    default: SITE_TITLE,
     template: "%s | Jose Paulo Timbang",
   },
-  description:
-    "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms using React, Python, PHP, Flask, FastAPI, Gemini API, and Groq. Based in Stittsville, ON, Canada.",
+  description: HOME_DESCRIPTION,
   keywords: [
     "Jose Paulo Timbang",
     "Full Stack Developer",
+    "AI Developer",
     "Web Developer",
     "React Developer",
     "Python Developer",
     "PHP Developer",
+    "Next.js",
     "Flask",
     "FastAPI",
     "AI Integration",
     "Gemini API",
     "Groq",
+    "Ottawa",
     "Canada",
-    "WordPress",
   ],
-  authors: [{ name: "Jose Paulo Timbang", url: "https://josepaulotimbang.com" }],
-  creator: "Jose Paulo Timbang",
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
   icons: {
     icon: "/icon.png",
     apple: "/apple-icon.png",
   },
+  // Pages override these with their own URL and title via pageMetadata()
+  // (lib/seo.ts); the preview image comes from app/og.png/route.tsx.
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://josepaulotimbang.com",
-    siteName: "Jose Paulo Timbang",
-    title: "Jose Paulo Timbang — Full-Stack Developer",
-    description:
-      "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms.",
-    images: [{ url: "/logo.png", width: 512, height: 512, alt: "JPT Logo" }],
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE],
   },
   twitter: {
-    card: "summary",
-    title: "Jose Paulo Timbang — Full-Stack Developer",
-    description:
-      "Full-Stack Developer with 8 years of experience building responsive web apps and AI-powered platforms.",
-    creator: "@josepaulotimbang",
-    images: ["/logo.png"],
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: HOME_DESCRIPTION,
+    images: [OG_IMAGE.url],
   },
   robots: {
     index: true,

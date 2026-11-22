@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
+import { pageMetadata } from "@/lib/seo";
 import AnimateIn from "@/components/ui/AnimateIn";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = pageMetadata({
   title: "Skills",
   description:
-    "Technical skills and technologies used by Jose Paulo Timbang — Frontend, Backend, Database, and AI.",
-};
+    "Technical skills of Jose Paulo Timbang: frontend (React, Next.js, TypeScript), backend (Python, Flask, PHP), databases, and AI integration with LLM APIs.",
+  path: "/skills",
+});
 
 const skillGroups = [
   {
