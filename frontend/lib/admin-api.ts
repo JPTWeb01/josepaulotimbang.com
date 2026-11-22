@@ -138,6 +138,55 @@ export const setJobStatus = (id: string, status: JobStatus) =>
     body: JSON.stringify({ id, status }),
   });
 
+// ─── Analytics & SEO ────────────────────────────────────────────────────
+
+type Row<K extends string, M extends string> = Record<K, string> & Record<M, number>;
+
+export type GaData = {
+  totals: {
+    activeUsers: number; newUsers: number; sessions: number; screenPageViews: number;
+    averageSessionDuration: number; engagementRate: number;
+  };
+  daily: Row<"date", "activeUsers" | "screenPageViews">[];
+  pages: Row<"pagePath", "screenPageViews" | "activeUsers">[];
+  channels: Row<"sessionDefaultChannelGroup", "sessions">[];
+  sources: Row<"sessionSource", "sessions">[];
+  countries: Row<"country", "activeUsers">[];
+  cities: Row<"city", "activeUsers">[];
+  devices: Row<"deviceCategory", "activeUsers">[];
+  events: { name: string; label: string; count: number }[];
+  generated_at: string;
+};
+
+type ScMetrics = { clicks: number; impressions: number; ctr: number; position: number };
+
+export type ScData = {
+  site: string;
+  totals: ScMetrics;
+  daily: (ScMetrics & { date: string })[];
+  queries: (ScMetrics & { query: string })[];
+  pages: (ScMetrics & { page: string })[];
+  countries: (ScMetrics & { country: string })[];
+  devices: (ScMetrics & { device: string })[];
+  generated_at: string;
+};
+
+export type AnalyticsData = {
+  days: number;
+  service_account: string | null;
+  ga_configured: boolean;
+  sc_configured: boolean;
+  ga: GaData | null;
+  ga_error: string | null;
+  sc: ScData | null;
+  sc_error: string | null;
+  site: { chat_messages: number | null; chat_visitors: number | null; job_matches: number; jobs_applied: number };
+};
+
+export const getAnalytics = (days: number, refresh = false) =>
+  request<AnalyticsData>(`/admin/analytics?days=${days}${refresh ? "&refresh=1" : ""}`);
+export const getRealtime = () => request<{ active_users: number | null }>("/admin/analytics/realtime");
+
 // ─── Helpers ────────────────────────────────────────────────────────────
 
 /** Local calendar date (YYYY-MM-DD from a date input) → UTC datetime string for the API. */

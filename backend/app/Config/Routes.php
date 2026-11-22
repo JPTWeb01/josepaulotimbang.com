@@ -67,6 +67,10 @@ $routes->group('v1', ['namespace' => 'App\Controllers\Api'], static function ($r
         $routes->get('chats/stats',      'ChatLogController::stats');
         $routes->delete('chats/(:num)',  'ChatLogController::delete/$1');
 
+        // Analytics & SEO (Google Analytics 4 + Search Console)
+        $routes->get('analytics',          'AnalyticsController::index');
+        $routes->get('analytics/realtime', 'AnalyticsController::realtime');
+
         // Job finder
         $routes->get('jobs',          'JobController::index');
         $routes->post('jobs/status',  'JobController::setStatus');

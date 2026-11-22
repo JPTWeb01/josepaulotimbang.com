@@ -73,7 +73,7 @@ jobs:
           SSH="ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new"
           REMOTE="$SSH_USERNAME@$SSH_HOST"
 
-          $SSH "$REMOTE" "mkdir -p $APP_PATH/writable/{cache,logs,session,uploads,debugbar,geoip,jobs} $WEB_PATH"
+          $SSH "$REMOTE" "mkdir -p $APP_PATH/writable/{cache,logs,session,uploads,debugbar,geoip,jobs,google} $WEB_PATH"
 
           # Application code (everything except public/, .env and runtime data)
           rsync -az --delete \
