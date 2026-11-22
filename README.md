@@ -279,6 +279,7 @@ MAIL_TO = contactme@josepaulotimbang.com
 | `JWT_TTL` | Token lifespan in seconds (86400 = 24 hours) |
 | `CORS_ORIGINS` | Comma-separated origins allowed to call the API |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Single-admin login credentials checked by `AuthController::login` (password stored as a bcrypt hash; to change it see [docs/admin-password.md](docs/admin-password.md)) |
+| `GA_PROPERTY_ID` / `SEARCH_CONSOLE_SITE` | Admin "Analytics & SEO" tab (GA4 + Search Console, read with a service account key in `writable/google/`); full setup in [docs/analytics-seo-setup.md](docs/analytics-seo-setup.md) |
 
 ### Frontend — `frontend/.env.local`
 
