@@ -278,7 +278,7 @@ MAIL_TO = contactme@josepaulotimbang.com
 | `JWT_SECRET` | Secret used to sign JWT tokens — keep this random and private |
 | `JWT_TTL` | Token lifespan in seconds (86400 = 24 hours) |
 | `CORS_ORIGINS` | Comma-separated origins allowed to call the API |
-| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Single-admin login credentials checked by `AuthController::login` (password stored as a bcrypt hash) |
+| `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Single-admin login credentials checked by `AuthController::login` (password stored as a bcrypt hash; to change it see [docs/admin-password.md](docs/admin-password.md)) |
 
 ### Frontend — `frontend/.env.local`
 
