@@ -1,6 +1,6 @@
 # Backend — josepaulotimbang.com
 
-The CodeIgniter 4 REST API powering [josepaulotimbang.com](https://josepaulotimbang.com) — serves public content (projects, skills, experience, blog) and a JWT-protected admin surface for managing it.
+The CodeIgniter 4 REST API behind [josepaulotimbang.com](https://josepaulotimbang.com). Today it powers the private admin dashboard at `/admin` (AI chatbot logs and job finder matches). The content endpoints (projects, skills, experience, blog) are included but not used by the live site yet.
 
 ---
 
@@ -14,6 +14,9 @@ See the [root README](../README.md) for the full-stack overview and deployment p
 
 ## Features
 
+- **AI Chat Logs** — the chatbot service posts every exchange to `/v1/chat-logs` (shared `X-Ingest-Key`); the server adds the visitor's country from a local DB-IP database (no third-party lookup) and deletes logs older than 90 days
+- **Job Finder Matches** — the job finder's daily GitHub Action posts its scored matches to `/v1/jobs/import`; the dashboard tracks new / saved / applied / hidden per job
+- **Login Throttle** — 5 login attempts per minute per IP
 - **Public Content API** — projects, skills, experience, and blog posts, with pagination, featured flags, and slug-based lookups
 - **Blog Extras** — categories, tags, related-posts lookup, and per-post view-count increments
 - **Contact Endpoint** — stores inbound messages to the database (in addition to the frontend's direct Web3Forms submission) with a read/unread admin inbox
@@ -31,8 +34,9 @@ See the [root README](../README.md) for the full-stack overview and deployment p
 | Technology | Purpose |
 |---|---|
 | CodeIgniter 4 | REST API framework |
-| PHP 8.1+ | Runtime |
-| firebase/php-jwt | JWT issuing and verification |
+| PHP 8.2+ (intl, mysqli) | Runtime |
+| firebase/php-jwt 7 | JWT issuing and verification |
+| maxmind-db/reader | Reads the DB-IP Country Lite database |
 | MySQLi | Database driver |
 | PHPUnit + fakerphp/faker | Testing (dev dependency) |
 
@@ -59,7 +63,12 @@ backend/
 │   │   ├── PostController.php        # Blog posts, categories, tags
 │   │   ├── ProjectController.php     # Projects CRUD
 │   │   └── SkillController.php       # Skills CRUD
+│   ├── Controllers/Api/ChatLogController.php  # Chat log ingest + admin list/stats/delete
+│   ├── Controllers/Api/JobController.php      # Job import + admin list/status
+│   ├── Database/Migrations/                   # chat_logs table
+│   ├── Libraries/GeoIp.php                    # IP → country (writable/geoip/*.mmdb)
 │   ├── Filters/
+│   │   ├── IngestKeyFilter.php  # Checks X-Ingest-Key on ingest routes
 │   │   └── JwtFilter.php    # Verifies Bearer token on /v1/admin/* routes
 │   ├── Helpers/
 │   │   └── response_helper.php  # api_success() / api_error() / api_paginated()
@@ -84,7 +93,7 @@ backend/
 
 ### Prerequisites
 
-- PHP 8.1+ and Composer
+- PHP 8.2+ (intl, mysqli) and Composer
 - MySQL database
 
 ### Install
@@ -104,9 +113,10 @@ Fill in the values (see Environment Variables below).
 ### Set up the database
 
 ```bash
-mysql -u root -p < ../database/migrations/001_create_tables.sql
-mysql -u root -p portfolio_db < ../database/migrations/002_seed_data.sql
+php spark migrate --all
 ```
+
+For country lookups, download the free [DB-IP Country Lite](https://db-ip.com/db/download/ip-to-country-lite) `.mmdb` and save it as `writable/geoip/dbip-country-lite.mmdb` (the deploy workflow does this monthly). Without it, the country is left blank.
 
 ### Run the dev server
 
@@ -136,9 +146,16 @@ database.default.DBDriver = MySQLi
 database.default.DBPrefix =
 database.default.port = 3306
 
-# JWT
-JWT_SECRET = your-super-secret-jwt-key-change-this-in-production
-JWT_TTL = 86400
+# Admin login (password is a bcrypt hash, not the plain password)
+ADMIN_EMAIL = you@example.com
+ADMIN_PASSWORD = $2y$10$...
+
+# JWT — at least 32 random characters
+JWT_SECRET =
+JWT_TTL = 28800
+
+# Shared key for the chatbot and job finder (at least 32 characters)
+INGEST_KEY =
 
 # CORS — comma-separated allowed origins
 CORS_ORIGINS = http://localhost:3000,https://josepaulotimbang.com
@@ -153,8 +170,9 @@ MAIL_TO = contactme@josepaulotimbang.com
 | `app.baseURL` | Base URL used to build absolute links and the JWT `iss` claim |
 | `database.default.*` | MySQL connection settings |
 | `JWT_SECRET` | Secret used to sign JWT tokens — keep this random and private |
-| `JWT_TTL` | Token lifespan in seconds (86400 = 24 hours) |
-| `CORS_ORIGINS` | Comma-separated origins allowed to call the API |
+| `JWT_TTL` | Token lifespan in seconds (28800 = 8 hours) |
+| `INGEST_KEY` | Shared secret the chatbot and job finder send in `X-Ingest-Key` |
+| `CORS_ORIGINS` | Comma-separated origins allowed to call the API. Only needed for local development; in production the dashboard calls `/api` on the same domain |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Single-admin login credentials checked by `AuthController::login` (password must be a bcrypt hash) |
 
 ---
@@ -182,10 +200,22 @@ MAIL_TO = contactme@josepaulotimbang.com
 | POST | `/v1/auth/login` | Admin login, returns a JWT |
 | POST | `/v1/auth/logout` | Stateless — client discards the token |
 
+### Ingest — `/v1` (requires `X-Ingest-Key`)
+
+| Method | Endpoint | Purpose |
+|---|---|---|
+| POST | `/v1/chat-logs` | One chatbot exchange: `ip`, `message`, `reply`, optional `session_id`, `page`, `site`, `user_agent` |
+| POST | `/v1/jobs/import` | JSON array of job matches (replaces the stored list; statuses are kept) |
+
 ### Admin — `/v1/admin` (requires `Authorization: Bearer <jwt>`)
 
 | Method | Endpoint | Purpose |
 |---|---|---|
+| GET | `/v1/admin/chats` | Chat logs; filters `from`, `to` (UTC), `country`, `ip` (prefix), `session`, `q`, `page`, `per_page` |
+| GET | `/v1/admin/chats/stats` | Totals, top countries, messages per day (same filters) |
+| DELETE | `/v1/admin/chats/{id}` | Delete one chat log |
+| GET | `/v1/admin/jobs` | Job matches with their status |
+| POST | `/v1/admin/jobs/status` | `{ id, status }` — `new`, `saved`, `applied`, `hidden` |
 | GET | `/v1/admin/messages` | List contact messages |
 | PATCH | `/v1/admin/messages/{id}/read` | Mark a message read |
 | DELETE | `/v1/admin/messages/{id}` | Delete a message |
@@ -200,13 +230,27 @@ All responses follow `{ success: boolean, message?: string, data?: any, errors?:
 
 ## Deployment
 
-No CI pipeline yet — deploy by pulling the latest code onto the Hostinger server and running:
+`.github/workflows/deploy-backend.yml` deploys on every push to `main` that touches `backend/`, and once a month to refresh the GeoIP database. It uses the same SSH secrets as the frontend workflow.
 
-```bash
-composer install --no-dev --optimize-autoloader
-```
+| Server path | Contents |
+|---|---|
+| `domains/josepaulotimbang.com/portfolio-api/` | App, vendor, `writable/`, `.env` — outside the web root |
+| `domains/josepaulotimbang.com/public_html/api/` | Only `index.php` and `.htaccess`, served at `https://josepaulotimbang.com/api` |
 
-Set `CI_ENVIRONMENT = production` in the server's `.env` and confirm `app.baseURL`, `CORS_ORIGINS`, and JWT/admin credentials are production values. See the [root README](../README.md#deployment-workflow) for how this fits into the overall deployment.
+`public/index.php` loads `../app` when run from this repo and `../../portfolio-api/app` on the server. The frontend workflow excludes `/api` from its `rsync --delete`.
+
+One-time setup on Hostinger:
+
+1. Set the domain's PHP version to 8.2 or newer.
+2. Create a MySQL database and user.
+3. Create `portfolio-api/.env` on the server with `CI_ENVIRONMENT = production`, `app.baseURL = 'https://josepaulotimbang.com/api/'`, the database settings, `ADMIN_EMAIL`, `ADMIN_PASSWORD` (hash), `JWT_SECRET` and `INGEST_KEY`. Generate values with:
+
+   ```bash
+   php -r "echo password_hash('your-password', PASSWORD_DEFAULT), PHP_EOL;"
+   php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"   # run twice: JWT_SECRET and INGEST_KEY
+   ```
+
+4. Run the workflow (or push). It runs `php spark migrate --all` once `.env` exists. If the server's CLI `php` is older than 8.2, set the repository variable `PHP_BIN` (for example `/opt/alt/php83/usr/bin/php`).
 
 ---
 
@@ -214,6 +258,8 @@ Set `CI_ENVIRONMENT = production` in the server's `.env` and confirm `app.baseUR
 
 - Single-admin auth only — there is no user registration, and admin credentials should never be committed
 - `JwtFilter` rejects requests with a missing, expired, or invalid-signature token before they reach the controller
+- Ingest routes need `X-Ingest-Key`, compared in constant time; `JWT_SECRET` shorter than 32 characters is refused
+- The app, `.env` and `writable/` live outside `public_html`; only the front controller is web-reachable
 - CORS is an explicit allowlist (`CORS_ORIGINS`), not a wildcard
 - `.env` is gitignored — secrets never committed to the repository
 

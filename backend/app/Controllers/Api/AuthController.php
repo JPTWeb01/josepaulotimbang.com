@@ -16,32 +16,36 @@ class AuthController extends ResourceController
     // POST /v1/auth/login
     public function login(): ResponseInterface
     {
-        $data = $this->request->getJSON(true) ?? $this->request->getPost();
-
-        $email    = $data['email']    ?? '';
-        $password = $data['password'] ?? '';
-
-        $adminEmail    = env('ADMIN_EMAIL',    'admin@josepaulotimbang.com');
-        $adminPassword = env('ADMIN_PASSWORD', '');
-
-        if ($email !== $adminEmail || !password_verify($password, $adminPassword)) {
-            return api_error('Invalid credentials', 401);
+        // 5 attempts per minute per IP, to slow down password guessing.
+        $key = 'login_' . md5($this->request->getIPAddress());
+        if (service('throttler')->check($key, 5, MINUTE) === false) {
+            return api_error('Too many attempts. Try again in a minute.', 429);
         }
 
-        $secret = env('JWT_SECRET', 'secret');
-        $ttl    = (int) env('JWT_TTL', 86400);
+        $data = $this->request->getJSON(true) ?? $this->request->getPost();
 
+        $email    = strtolower(trim((string) ($data['email'] ?? '')));
+        $password = (string) ($data['password'] ?? '');
+
+        $adminEmail    = strtolower((string) env('ADMIN_EMAIL', ''));
+        $adminPassword = (string) env('ADMIN_PASSWORD', '');
+
+        if ($adminEmail === '' || $adminPassword === ''
+            || ! hash_equals($adminEmail, $email)
+            || ! password_verify($password, $adminPassword)) {
+            return api_error('Invalid email or password', 401);
+        }
+
+        $ttl     = (int) env('JWT_TTL', 28800);
         $payload = [
-            'iss' => env('app.baseURL', 'http://localhost:8000'),
+            'iss' => 'josepaulotimbang.com',
             'iat' => time(),
             'exp' => time() + $ttl,
-            'sub' => $email,
+            'sub' => $adminEmail,
         ];
 
-        $token = JWT::encode($payload, $secret, 'HS256');
-
         return api_success([
-            'token'      => $token,
+            'token'      => JWT::encode($payload, jwt_secret(), 'HS256'),
             'expires_at' => date('c', $payload['exp']),
         ], 'Login successful');
     }

@@ -18,6 +18,9 @@ $routes->get('health', static function () {
         ->setStatusCode(200);
 });
 
+// CORS preflight (local development only; production is same-origin)
+$routes->options('(:any)', static fn () => service('response')->setStatusCode(204));
+
 // ─── Public API v1 ────────────────────────────────────────────────
 $routes->group('v1', ['namespace' => 'App\Controllers\Api'], static function ($routes) {
 
@@ -46,12 +49,27 @@ $routes->group('v1', ['namespace' => 'App\Controllers\Api'], static function ($r
     // Contact
     $routes->post('contact', 'ContactController::store');
 
+    // Machine-to-machine ingest (X-Ingest-Key): chatbot logs and job finder results
+    $routes->group('', ['filter' => 'ingest'], static function ($routes) {
+        $routes->post('chat-logs',   'ChatLogController::store');
+        $routes->post('jobs/import', 'JobController::import');
+    });
+
     // Auth
     $routes->post('auth/login',  'AuthController::login');
     $routes->post('auth/logout', 'AuthController::logout');
 
     // ─── Admin (JWT protected) ─────────────────────────────────
     $routes->group('admin', ['filter' => 'jwt'], static function ($routes) {
+
+        // AI chatbot logs
+        $routes->get('chats',            'ChatLogController::index');
+        $routes->get('chats/stats',      'ChatLogController::stats');
+        $routes->delete('chats/(:num)',  'ChatLogController::delete/$1');
+
+        // Job finder
+        $routes->get('jobs',          'JobController::index');
+        $routes->post('jobs/status',  'JobController::setStatus');
 
         // Messages
         $routes->get('messages',             'ContactController::index');

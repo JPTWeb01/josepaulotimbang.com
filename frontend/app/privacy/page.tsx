@@ -25,6 +25,8 @@ const sections: { title: string; body: string[] }[] = [
     title: "AI chatbot",
     body: [
       "Messages you type into the chat are sent to my chatbot service, which uses Google Gemini to write a reply. Don't share sensitive personal information in the chat.",
+      "Each chat message is saved with the bot's reply, the date and time, your IP address, the country it maps to, the page you were on and your browser type. I read these logs to see what visitors ask and to improve the answers. Only I can see them.",
+      "Chat logs are deleted automatically after 90 days. Country lookup uses the free IP to Country Lite database by DB-IP (db-ip.com), which runs on my own server, so your IP address isn't sent to another service for it.",
     ],
   },
   {

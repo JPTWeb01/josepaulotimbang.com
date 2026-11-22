@@ -1,0 +1,104 @@
+name: Deploy Backend API to Hostinger
+
+# Layout on the server (paths relative to the SSH user's home):
+#   domains/josepaulotimbang.com/portfolio-api/   app, vendor, writable, .env  (NOT web-reachable)
+#   domains/josepaulotimbang.com/public_html/api/ index.php + .htaccess only    (served at /api)
+#
+# The server-side .env and the writable/ data (chat logs live in MySQL; job
+# matches and caches live in writable/) are never overwritten by this workflow.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - ".github/workflows/deploy-backend.yml"
+  schedule:
+    - cron: "0 7 3 * *" # monthly: refresh the DB-IP country database
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-backend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.3"
+          extensions: intl, mysqli, mbstring
+          tools: composer:v2
+          coverage: none
+
+      - name: Install production dependencies
+        working-directory: backend
+        run: composer install --no-dev --no-interaction --prefer-dist --optimize-autoloader
+
+      - name: Download DB-IP Country Lite (CC BY 4.0)
+        run: |
+          set -euo pipefail
+          mkdir -p geoip
+          for m in "$(date -u +%Y-%m)" "$(date -u -d '-1 month' +%Y-%m)"; do
+            if curl -fsSL "https://download.db-ip.com/free/dbip-country-lite-$m.mmdb.gz" -o geoip/db.mmdb.gz; then
+              gunzip -f geoip/db.mmdb.gz
+              mv geoip/db.mmdb geoip/dbip-country-lite.mmdb
+              echo "Using DB-IP $m"
+              exit 0
+            fi
+          done
+          echo "::warning::DB-IP download failed; keeping the database already on the server"
+
+      - name: Deploy via rsync over SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USERNAME: ${{ secrets.SSH_USERNAME }}
+          APP_PATH: domains/josepaulotimbang.com/portfolio-api
+          WEB_PATH: domains/josepaulotimbang.com/public_html/api
+          PHP_BIN: ${{ vars.PHP_BIN }}
+        run: |
+          set -euo pipefail
+          mkdir -p ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -p "$SSH_PORT" "$SSH_HOST" >> ~/.ssh/known_hosts 2>/dev/null || true
+          SSH="ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=accept-new"
+          REMOTE="$SSH_USERNAME@$SSH_HOST"
+
+          $SSH "$REMOTE" "mkdir -p $APP_PATH/writable/{cache,logs,session,uploads,debugbar,geoip,jobs} $WEB_PATH"
+
+          # Application code (everything except public/, .env and runtime data)
+          rsync -az --delete \
+            --exclude=/.env \
+            --exclude=/writable \
+            --exclude=/public \
+            --exclude=/tests \
+            --exclude=/env \
+            -e "$SSH" \
+            backend/ "$REMOTE:$APP_PATH/"
+
+          # writable/ skeleton only (.htaccess + index.html files); never deletes data
+          rsync -az \
+            --include='*/' --include='.htaccess' --include='index.html' --exclude='*' \
+            -e "$SSH" \
+            backend/writable/ "$REMOTE:$APP_PATH/writable/"
+
+          # Front controller served at /api
+          rsync -az --delete -e "$SSH" backend/public/ "$REMOTE:$WEB_PATH/"
+
+          if [ -f geoip/dbip-country-lite.mmdb ]; then
+            rsync -az -e "$SSH" geoip/dbip-country-lite.mmdb "$REMOTE:$APP_PATH/writable/geoip/"
+          fi
+
+          # Database migrations (needs a valid .env on the server)
+          $SSH "$REMOTE" "cd $APP_PATH && if [ -f .env ]; then ${PHP_BIN:-php} spark migrate --all; else echo '::warning::No .env on server yet; skipped migrations'; fi"
+
+          rm -f ~/.ssh/deploy_key

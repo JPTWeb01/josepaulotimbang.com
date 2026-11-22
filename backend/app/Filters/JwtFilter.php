@@ -25,7 +25,7 @@ class JwtFilter implements FilterInterface
         $token = substr($authHeader, 7);
 
         try {
-            $decoded = JWT::decode($token, new Key(env('JWT_SECRET', 'secret'), 'HS256'));
+            $decoded = JWT::decode($token, new Key(jwt_secret(), 'HS256'));
             $request->jwt = $decoded;
         } catch (ExpiredException) {
             return service('response')

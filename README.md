@@ -336,9 +336,9 @@ Defined in `.github/workflows/deploy-frontend.yml`.
 | `NEXT_PUBLIC_API_URL` | Production API URL baked into the static build |
 | `NEXT_PUBLIC_WEB3FORMS_KEY` | Web3Forms access key baked into the static build |
 
-### Backend — Hostinger (manual)
+### Backend — `deploy-backend.yml`
 
-The CodeIgniter API has no CI pipeline yet; it's deployed by pulling the latest code onto the Hostinger server and running `composer install --no-dev --optimize-autoloader`.
+Pushes to `main` that touch `backend/` deploy the API over the same SSH secrets: the app goes to `domains/josepaulotimbang.com/portfolio-api/` (outside the web root) and only `index.php` + `.htaccess` go to `public_html/api/`, so the API is served at `https://josepaulotimbang.com/api`. The workflow also refreshes the DB-IP country database monthly and runs migrations. One-time server setup is in [backend/README.md](backend/README.md#deployment).
 
 ---
 
@@ -387,7 +387,13 @@ paulo-ai-chatbot (external service, separate repo)
 
 ### Backend status
 
-The CodeIgniter API, MySQL schema, and JWT admin routes are built but **not wired into the frontend** — no page imports `lib/api.ts`, and the contact form posts only to Web3Forms. The flows below describe how the API works if it is connected.
+The API now powers the private admin dashboard at `/admin` (not linked, `noindex`):
+
+- **AI chat logs** — the chatbot service forwards each exchange (date and time, IP, country, page, message, reply) to `POST /api/v1/chat-logs`. Logs are kept 90 days; visitors see a notice under the chat box and in the privacy policy.
+- **Job matches** — the job finder's daily run posts its scored matches to `POST /api/v1/jobs/import`.
+- **Google Analytics** — the dashboard links to analytics.google.com; traffic reports stay there.
+
+The content endpoints (projects, posts, skills, experience, contact) are still **not wired into the frontend** — no page imports `lib/api.ts`, and the contact form posts only to Web3Forms.
 
 **Data flow — admin content management (API only):**
 1. Owner submits credentials to `POST /v1/auth/login`; the API checks against `ADMIN_EMAIL` / `ADMIN_PASSWORD` and returns a signed JWT

@@ -49,6 +49,7 @@ jobs:
           rsync -avz --delete \
             --exclude=/devquiz \
             --exclude=/wordpress \
+            --exclude=/api \
             -e "ssh -i ~/.ssh/deploy_key -p $SSH_PORT -o StrictHostKeyChecking=no" \
             frontend/out/ \
             "$SSH_USERNAME@$SSH_HOST:$DEPLOY_PATH/"

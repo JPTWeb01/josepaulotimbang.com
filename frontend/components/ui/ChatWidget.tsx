@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { usePathname } from "next/navigation";
 import { MessageCircle, X, Send } from "lucide-react";
 import { track } from "@/lib/analytics";
 
@@ -59,6 +60,8 @@ export default function ChatWidget() {
   const hasGreeted = useRef(false);
   const lastSentAtRef = useRef(0);
   const userMessageCountRef = useRef(0);
+  const sessionIdRef = useRef("");
+  const pathname = usePathname();
 
   useEffect(() => {
     messagesRef.current?.scrollTo({ top: messagesRef.current.scrollHeight });
@@ -96,6 +99,11 @@ export default function ChatWidget() {
     setCooldown(true);
     setTimeout(() => setCooldown(false), MESSAGE_COOLDOWN_MS);
 
+    // Random per-visit id so the admin log can group one conversation together
+    if (!sessionIdRef.current) {
+      sessionIdRef.current = crypto.randomUUID().replace(/-/g, "").slice(0, 24);
+    }
+
     userMessageCountRef.current += 1;
     track("chat_message", { message_number: userMessageCountRef.current });
 
@@ -118,6 +126,8 @@ export default function ChatWidget() {
         body: JSON.stringify({
           message: trimmed,
           history: nextHistory.slice(-10),
+          session_id: sessionIdRef.current,
+          page: window.location.pathname,
         }),
       });
       const data = await res.json();
@@ -161,6 +171,8 @@ export default function ChatWidget() {
       inputRef.current?.focus();
     }
   }
+
+  if (pathname.startsWith("/admin")) return null;
 
   return (
     <div
@@ -292,6 +304,10 @@ export default function ChatWidget() {
             <Send size={15} />
           </button>
         </div>
+        <p className="px-4 pb-2.5 -mt-1 text-[11px] leading-snug text-subtle shrink-0">
+          Chats are saved for up to 90 days to improve answers.{" "}
+          <a href="/privacy/" className="underline hover:text-muted">Privacy</a>
+        </p>
       </div>
 
       {/* Toggle button */}
