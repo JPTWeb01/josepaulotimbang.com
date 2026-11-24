@@ -53,6 +53,7 @@ $routes->group('v1', ['namespace' => 'App\Controllers\Api'], static function ($r
     $routes->group('', ['filter' => 'ingest'], static function ($routes) {
         $routes->post('chat-logs',   'ChatLogController::store');
         $routes->post('jobs/import', 'JobController::import');
+        $routes->post('jobs/learning', 'JobController::importLearning');
     });
 
     // Auth
@@ -74,6 +75,7 @@ $routes->group('v1', ['namespace' => 'App\Controllers\Api'], static function ($r
         // Job finder
         $routes->get('jobs',          'JobController::index');
         $routes->post('jobs/status',  'JobController::setStatus');
+        $routes->get('learning',      'JobController::learning');
 
         // Messages
         $routes->get('messages',             'ContactController::index');

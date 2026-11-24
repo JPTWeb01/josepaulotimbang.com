@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Check, Copy, ExternalLink } from "lucide-react";
+import { safeUrl } from "./safe-url";
 import { type Job, type JobStatus, fromUtc, getJobs, setJobStatus } from "@/lib/admin-api";
 
 const BUCKETS: Record<string, string> = {
@@ -125,7 +126,8 @@ export default function JobMatches({ onAuthError }: { onAuthError: (e: unknown) 
 }
 
 function JobCard({ job: j, onMark }: { job: Job; onMark: (s: JobStatus) => void }) {
-  const [showLetter, setShowLetter] = useState(false);
+  const [open, setOpen] = useState<"" | "letter" | "research" | "interview">("");
+  const toggle = (k: typeof open) => setOpen(open === k ? "" : k);
   const [copied, setCopied] = useState(false);
   const tone = j.score >= 85 ? "bg-success" : j.score >= 70 ? "bg-primary" : "bg-amber-600";
 
@@ -138,7 +140,12 @@ function JobCard({ job: j, onMark }: { job: Job; onMark: (s: JobStatus) => void 
   return (
     <article className={`bg-card border border-border rounded-xl p-4 ${j.status === "hidden" ? "opacity-60" : ""}`}>
       <div className="flex flex-wrap items-start gap-3">
-        <span className={`${tone} text-white text-sm font-bold rounded-md px-2 py-0.5`} title="Fit score">{j.score}</span>
+        <span
+          className={`${tone} text-white text-sm font-bold rounded-md px-2 py-0.5`}
+          title={j.score_before_research != null ? `Fit score (was ${j.score_before_research} before research)` : "Fit score"}
+        >
+          {j.score}
+        </span>
         <div className="flex-1 min-w-0">
           <a href={j.url} target="_blank" rel="noopener noreferrer" className="font-semibold text-foreground hover:text-primary inline-flex items-center gap-1.5">
             {j.title} <ExternalLink size={13} className="opacity-60" />
@@ -186,22 +193,92 @@ function JobCard({ job: j, onMark }: { job: Job; onMark: (s: JobStatus) => void 
         </div>
       ) : null}
 
-      {j.letter && (
-        <div className="mt-3">
-          <button onClick={() => setShowLetter(!showLetter)} className="text-sm text-primary hover:underline">
-            {showLetter ? "Hide cover letter draft" : "Show cover letter draft"}
-          </button>
-          {showLetter && (
-            <div className="mt-2 bg-surface border border-border rounded-lg p-4">
-              <div className="flex items-start justify-between gap-3 mb-2">
-                <p className="text-sm text-foreground"><span className="text-subtle">Subject:</span> {j.letter_subject}</p>
-                <button onClick={copy} className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground shrink-0">
-                  {copied ? <><Check size={12} /> Copied</> : <><Copy size={12} /> Copy</>}
-                </button>
-              </div>
-              <p className="text-sm text-muted whitespace-pre-wrap">{j.letter}</p>
+      {(j.letter || j.research || j.interview?.questions.length) && (
+        <div className="mt-3 flex flex-wrap gap-4 text-sm">
+          {j.research && (
+            <button onClick={() => toggle("research")} className="text-primary hover:underline">
+              {open === "research" ? "Hide company research" : "Company research"}
+            </button>
+          )}
+          {j.interview?.questions.length ? (
+            <button onClick={() => toggle("interview")} className="text-primary hover:underline">
+              {open === "interview" ? "Hide interview prep" : `Interview prep (${j.interview.questions.length})`}
+            </button>
+          ) : null}
+          {j.letter && (
+            <button onClick={() => toggle("letter")} className="text-primary hover:underline">
+              {open === "letter" ? "Hide cover letter draft" : "Cover letter draft"}
+            </button>
+          )}
+        </div>
+      )}
+
+      {open === "research" && j.research && (
+        <div className="mt-2 bg-surface border border-border rounded-lg p-4 space-y-3 text-sm">
+          <p className="text-muted">{j.research.company_summary}</p>
+          {j.score_before_research != null && j.score_before_research !== j.score && (
+            <p className="text-xs text-subtle">
+              Score changed from {j.score_before_research} to {j.score} after research{j.score_reason ? `: ${j.score_reason}` : "."}
+            </p>
+          )}
+          {j.research.tech_stack.length > 0 && (
+            <div className="flex flex-wrap gap-1.5">
+              {j.research.tech_stack.map((t) => (
+                <span key={t} className="text-xs px-2 py-0.5 rounded-md border border-border text-muted">{t}</span>
+              ))}
             </div>
           )}
+          {j.research.facts.length > 0 && (
+            <ul className="list-disc pl-5 text-muted space-y-1">
+              {j.research.facts.map((f) => (
+                <li key={f.fact}>
+                  {f.fact}{" "}
+                  {safeUrl(f.source) && (
+                    <a href={safeUrl(f.source)} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline">
+                      source ↗
+                    </a>
+                  )}
+                </li>
+              ))}
+            </ul>
+          )}
+          <p className="text-xs text-subtle">Written by AI from web pages. Check the sources before you rely on a fact.</p>
+        </div>
+      )}
+
+      {open === "interview" && j.interview && (
+        <div className="mt-2 bg-surface border border-border rounded-lg p-4 space-y-4 text-sm">
+          <ol className="space-y-3">
+            {j.interview.questions.map((q, i) => (
+              <li key={q.question}>
+                <p className="text-foreground">
+                  <span className="text-subtle">{i + 1}.</span> {q.question}{" "}
+                  <span className="text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-primary/15 text-primary align-middle">{q.type}</span>
+                </p>
+                <ul className="list-disc pl-9 text-muted space-y-0.5 mt-1">
+                  {q.talking_points.map((p) => <li key={p}>{p}</li>)}
+                </ul>
+              </li>
+            ))}
+          </ol>
+          {j.interview.ask_them.length > 0 && (
+            <div>
+              <p className="text-xs uppercase tracking-wider text-success mb-1">Questions to ask them</p>
+              <ul className="list-disc pl-5 text-muted space-y-0.5">{j.interview.ask_them.map((a) => <li key={a}>{a}</li>)}</ul>
+            </div>
+          )}
+        </div>
+      )}
+
+      {open === "letter" && j.letter && (
+        <div className="mt-2 bg-surface border border-border rounded-lg p-4">
+          <div className="flex items-start justify-between gap-3 mb-2">
+            <p className="text-sm text-foreground"><span className="text-subtle">Subject:</span> {j.letter_subject}</p>
+            <button onClick={copy} className="inline-flex items-center gap-1 text-xs text-muted hover:text-foreground shrink-0">
+              {copied ? <><Check size={12} /> Copied</> : <><Copy size={12} /> Copy</>}
+            </button>
+          </div>
+          <p className="text-sm text-muted whitespace-pre-wrap">{j.letter}</p>
         </div>
       )}
     </article>

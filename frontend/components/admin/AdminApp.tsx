@@ -1,11 +1,12 @@
 "use client";
 
 import { useState, useSyncExternalStore } from "react";
-import { BarChart3, Briefcase, LineChart, LogOut, MessageSquare } from "lucide-react";
+import { BarChart3, Briefcase, GraduationCap, LineChart, LogOut, MessageSquare } from "lucide-react";
 import { AuthError, getSession, login, logout } from "@/lib/admin-api";
 import Analytics from "./Analytics";
 import ChatLogs from "./ChatLogs";
 import JobMatches from "./JobMatches";
+import Study from "./Study";
 
 const AUTH_EVENT = "jpt:admin-auth";
 const subscribe = (cb: () => void) => {
@@ -25,7 +26,7 @@ const onAuthError = (e: unknown) => {
   return false;
 };
 
-type Tab = "chats" | "jobs" | "analytics";
+type Tab = "chats" | "jobs" | "study" | "analytics";
 
 export default function AdminApp() {
   // null on the server / first paint, so the login form never flashes for a logged-in user
@@ -67,6 +68,7 @@ export default function AdminApp() {
         {([
           ["chats", "AI chat logs", MessageSquare],
           ["jobs", "Job matches", Briefcase],
+          ["study", "Study", GraduationCap],
           ["analytics", "Analytics & SEO", LineChart],
         ] as const).map(([id, label, Icon]) => (
           <button
@@ -85,6 +87,7 @@ export default function AdminApp() {
 
       {tab === "chats" && <ChatLogs onAuthError={onAuthError} />}
       {tab === "jobs" && <JobMatches onAuthError={onAuthError} />}
+      {tab === "study" && <Study onAuthError={onAuthError} />}
       {tab === "analytics" && <Analytics onAuthError={onAuthError} />}
     </div>
   );

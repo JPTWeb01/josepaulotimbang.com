@@ -129,7 +129,53 @@ export type Job = {
   letter_subject?: string;
   found: string;
   status: JobStatus;
+  // Added by the research agent for the top few jobs
+  research?: {
+    company_summary: string;
+    tech_stack: string[];
+    facts: { fact: string; source: string }[];
+    sources: string[];
+  };
+  score_before_research?: number;
+  score_reason?: string;
+  interview?: {
+    questions: { type: string; question: string; talking_points: string[] }[];
+    ask_them: string[];
+  };
 };
+
+// ─── Study guides & daily lesson (job finder's project study agent) ─────
+
+export type StudyGuide = {
+  repo: string;
+  name: string;
+  studied: string;
+  sha: string;
+  base_url: string; // GitHub file link prefix
+  guide: {
+    summary: string;
+    how_it_works: string[];
+    tech: { name: string; role?: string }[];
+    concepts: { concept: string; explain?: string; where?: string; why_it_matters?: string }[];
+    key_files: { path: string; what?: string }[];
+    interview_pitch: string;
+    likely_questions: { question: string; talking_points?: string[] }[];
+  };
+};
+
+export type Learning = {
+  updated_at: string | null;
+  jobs?: number;
+  lesson?: {
+    project: string; concept: string; explain: string; why: string;
+    where: string; url: string; demand: Record<string, number>;
+  } | null;
+  gaps?: { tech: string; count: number }[];
+  guides: StudyGuide[];
+  last_failure?: { repo: string; date: string; reason: string } | null;
+};
+
+export const getLearning = () => request<Learning>("/admin/learning");
 
 export const getJobs = () => request<{ updated_at: string | null; items: Job[] }>("/admin/jobs");
 export const setJobStatus = (id: string, status: JobStatus) =>
